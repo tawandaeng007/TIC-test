@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { CalendarHeart, Gift, MessageSquareText, Phone } from "lucide-react";
 
 const programs = [
   {
@@ -415,11 +416,15 @@ export default function Home() {
 
       <nav className="mobile-bottom-nav" aria-label="เมนูด่วนสำหรับมือถือ">
         <a href="#reviews">
-          <span className="mobile-nav-icon" aria-hidden="true">▤</span>
+          <span className="mobile-nav-icon" aria-hidden="true">
+            <MessageSquareText />
+          </span>
           <span>รีวิว</span>
         </a>
         <button type="button" onClick={openBooking}>
-          <span className="mobile-nav-icon" aria-hidden="true">◇</span>
+          <span className="mobile-nav-icon" aria-hidden="true">
+            <CalendarHeart />
+          </span>
           <span>ปรึกษาฟรี</span>
         </button>
         <button
@@ -434,11 +439,15 @@ export default function Home() {
           </span>
         </button>
         <a href="#promotion">
-          <span className="mobile-nav-icon" aria-hidden="true">◆</span>
+          <span className="mobile-nav-icon" aria-hidden="true">
+            <Gift />
+          </span>
           <span>โปรโมชั่น</span>
         </a>
         <a href="tel:021234567">
-          <span className="mobile-nav-icon" aria-hidden="true">⌕</span>
+          <span className="mobile-nav-icon" aria-hidden="true">
+            <Phone />
+          </span>
           <span>โทร</span>
         </a>
       </nav>
