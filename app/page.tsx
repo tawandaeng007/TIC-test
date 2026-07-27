@@ -1,0 +1,483 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+
+const programs = [
+  {
+    tag: "Signature",
+    title: "โบท็อกซ์ริ้วรอย",
+    detail: "ลดริ้วรอย คืนความอ่อนเยาว์",
+    price: "2,990.-",
+    position: "16%",
+  },
+  {
+    tag: "Popular",
+    title: "ฟิลเลอร์ปรับรูปหน้า",
+    detail: "ปรับรูปหน้า ดูมีมิติอย่างเป็นธรรมชาติ",
+    price: "6,990.-",
+    position: "24%",
+  },
+  {
+    tag: "Brightening",
+    title: "เลเซอร์หน้าใส",
+    detail: "ผิวกระจ่างใส ลดฝ้า จุดด่างดำ",
+    price: "3,990.-",
+    position: "34%",
+  },
+  {
+    tag: "Lift & Firm",
+    title: "ยกกระชับ Ultherapy",
+    detail: "ยกกระชับผิว ไม่ต้องผ่าตัด",
+    price: "39,900.-",
+    position: "12%",
+  },
+  {
+    tag: "Healthy Glow",
+    title: "Skin Booster",
+    detail: "ผิวชุ่มชื้น ฉ่ำวาว สุขภาพดี",
+    price: "4,990.-",
+    position: "28%",
+  },
+];
+
+const reviews = [
+  {
+    quote:
+      "คุณหมอให้คำแนะนำดีมาก ทำแล้วผลลัพธ์ธรรมชาติ ประทับใจตั้งแต่ครั้งแรกเลยค่ะ",
+    name: "คุณมินตรา",
+    service: "ฟิลเลอร์ปรับรูปหน้า",
+    initials: "MN",
+  },
+  {
+    quote:
+      "บริการประทับใจ พนักงานดูแลดีมากค่ะ คลินิกสะอาดและเป็นส่วนตัว",
+    name: "คุณพิมพ์ชนก",
+    service: "Skin Booster",
+    initials: "PP",
+  },
+  {
+    quote:
+      "ทำแล้วหน้าใสขึ้นจริง เพื่อนทักเยอะเลยค่ะ คุณหมอมือเบามาก แนะนำเลยค่ะ",
+    name: "คุณอรอนงค์",
+    service: "เลเซอร์หน้าใส",
+    initials: "AO",
+  },
+];
+
+const trustItems = [
+  {
+    icon: "✦",
+    title: "ปลอดภัยได้มาตรฐาน",
+    detail: "ผ่านการรับรองจากกระทรวงสาธารณสุข",
+  },
+  {
+    icon: "◎",
+    title: "แพทย์ผู้เชี่ยวชาญ",
+    detail: "ทีมแพทย์มากประสบการณ์ ดูแลอย่างใกล้ชิด",
+  },
+  {
+    icon: "◇",
+    title: "เทคโนโลยีทันสมัย",
+    detail: "เครื่องมือระดับพรีเมียม อัปเดตล่าสุด",
+  },
+  {
+    icon: "♡",
+    title: "ดูแลอย่างใส่ใจ",
+    detail: "ให้คำปรึกษาก่อนและหลังทำทุกเคส",
+  },
+];
+
+export default function Home() {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [bookingOpen, setBookingOpen] = useState(false);
+  const [beforeAfter, setBeforeAfter] = useState(52);
+  const [sent, setSent] = useState(false);
+  const programRail = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    document.body.style.overflow = bookingOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [bookingOpen]);
+
+  const scrollPrograms = (direction: number) => {
+    programRail.current?.scrollBy({
+      left: direction * 360,
+      behavior: "smooth",
+    });
+  };
+
+  const openBooking = () => {
+    setSent(false);
+    setBookingOpen(true);
+    setMenuOpen(false);
+  };
+
+  return (
+    <main>
+      <div className="topbar">
+        <div className="container topbar-inner">
+          <span>🎁 โปรโมชั่นพิเศษสำหรับลูกค้าใหม่ ปรึกษาฟรี ไม่มีค่าใช้จ่าย</span>
+          <div className="topbar-meta">
+            <span>⌖ สาขา อารีย์</span>
+            <span className="topbar-divider" />
+            <span>เปิดบริการทุกวัน 10:00 - 20:00 น.</span>
+          </div>
+        </div>
+      </div>
+
+      <header className="site-header">
+        <div className="container nav-wrap">
+          <a className="brand" href="#home" aria-label="TIC Clinic หน้าแรก">
+            <strong>TIC</strong>
+            <span>CLINIC</span>
+          </a>
+
+          <button
+            className="menu-button"
+            type="button"
+            aria-label={menuOpen ? "ปิดเมนู" : "เปิดเมนู"}
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen((value) => !value)}
+          >
+            <span />
+            <span />
+          </button>
+
+          <nav className={menuOpen ? "main-nav is-open" : "main-nav"}>
+            <a className="active" href="#home" onClick={() => setMenuOpen(false)}>
+              หน้าแรก
+            </a>
+            <a href="#about" onClick={() => setMenuOpen(false)}>
+              เกี่ยวกับเรา
+            </a>
+            <a href="#services" onClick={() => setMenuOpen(false)}>
+              บริการ
+            </a>
+            <a href="#promotion" onClick={() => setMenuOpen(false)}>
+              โปรโมชั่น
+            </a>
+            <a href="#reviews" onClick={() => setMenuOpen(false)}>
+              รีวิว
+            </a>
+            <a href="#results" onClick={() => setMenuOpen(false)}>
+              ผลลัพธ์
+            </a>
+            <a href="#contact" onClick={() => setMenuOpen(false)}>
+              ติดต่อเรา
+            </a>
+            <button className="nav-booking" type="button" onClick={openBooking}>
+              จองคิว
+            </button>
+          </nav>
+        </div>
+      </header>
+
+      <section className="hero" id="home">
+        <div className="hero-image" aria-hidden="true" />
+        <div className="container hero-inner">
+          <div className="hero-copy">
+            <div className="eyebrow">
+              <span />
+              TIC CLINIC
+            </div>
+            <h1>
+              ดูแลความงามอย่างมั่นใจ
+              <strong>มาตรฐานการดูแลระดับพรีเมียม</strong>
+            </h1>
+            <p>
+              ปลอดภัย ได้มาตรฐาน โดยทีมแพทย์ผู้เชี่ยวชาญ
+              <br />
+              พร้อมเทคโนโลยีที่ทันสมัย เพื่อผลลัพธ์ที่ดูเป็นธรรมชาติ
+            </p>
+            <div className="hero-actions">
+              <button className="button button-primary" type="button" onClick={openBooking}>
+                จองคิวปรึกษา
+                <span>→</span>
+              </button>
+              <a className="button button-outline" href="#services">
+                สอบถามเพิ่มเติม
+              </a>
+            </div>
+            <div className="hero-proof">
+              <div className="avatars" aria-hidden="true">
+                <span>MN</span>
+                <span>PP</span>
+                <span>AO</span>
+              </div>
+              <div>
+                <span className="stars">★★★★★</span>
+                <small>ความพึงพอใจจากผู้ใช้บริการกว่า 2,500 รีวิว</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="programs section-shell" id="services">
+        <div className="container">
+          <div className="section-heading">
+            <div>
+              <span className="section-kicker">OUR SIGNATURE PROGRAMS</span>
+              <h2>โปรแกรมแนะนำ</h2>
+            </div>
+            <div className="rail-actions">
+              <button type="button" onClick={() => scrollPrograms(-1)} aria-label="เลื่อนไปทางซ้าย">
+                ←
+              </button>
+              <button type="button" onClick={() => scrollPrograms(1)} aria-label="เลื่อนไปทางขวา">
+                →
+              </button>
+            </div>
+          </div>
+
+          <div className="program-rail" ref={programRail}>
+            {programs.map((program) => (
+              <article className="program-card" key={program.title}>
+                <div
+                  className="program-photo"
+                  style={{ backgroundPosition: `${program.position} center` }}
+                >
+                  <span>{program.tag}</span>
+                </div>
+                <div className="program-content">
+                  <h3>{program.title}</h3>
+                  <p>{program.detail}</p>
+                  <div className="price-row">
+                    <div>
+                      <small>เริ่มต้น</small>
+                      <strong>{program.price}</strong>
+                    </div>
+                    <button type="button" onClick={openBooking} aria-label={`จอง ${program.title}`}>
+                      ↗
+                    </button>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="trust-section" id="about">
+        <div className="container trust-grid">
+          {trustItems.map((item) => (
+            <article key={item.title}>
+              <div className="trust-icon">{item.icon}</div>
+              <div>
+                <h3>{item.title}</h3>
+                <p>{item.detail}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="reviews-section section-shell" id="reviews">
+        <div className="container">
+          <div className="section-heading split-heading">
+            <div>
+              <span className="section-kicker">REAL EXPERIENCES</span>
+              <h2>เสียงจากผู้ใช้บริการจริง</h2>
+            </div>
+            <p>
+              เพราะทุกความมั่นใจมีความหมาย เราจึงใส่ใจในทุกขั้นตอน
+              และให้ผลลัพธ์ที่เป็นธรรมชาติที่สุดสำหรับคุณ
+            </p>
+          </div>
+
+          <div className="review-grid">
+            {reviews.map((review) => (
+              <article className="review-card" key={review.name}>
+                <div className="review-top">
+                  <span className="stars">★★★★★</span>
+                  <span className="quote-mark">“</span>
+                </div>
+                <blockquote>{review.quote}</blockquote>
+                <div className="review-person">
+                  <div className="review-avatar">{review.initials}</div>
+                  <div>
+                    <strong>{review.name}</strong>
+                    <small>{review.service}</small>
+                  </div>
+                  <span className="verified">✓ รีวิวที่ยืนยันแล้ว</span>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="results-section" id="results">
+        <div className="container results-grid">
+          <div className="results-copy">
+            <span className="section-kicker">NATURAL RESULTS</span>
+            <h2>
+              ผลลัพธ์ที่คุณ
+              <br />
+              สัมผัสได้
+            </h2>
+            <p>
+              เราออกแบบการดูแลเฉพาะบุคคล เพื่อให้ผลลัพธ์ดูสวยอย่างเป็นธรรมชาติ
+              และยังคงความเป็นตัวคุณ
+            </p>
+            <div className="result-stats">
+              <div>
+                <strong>12+</strong>
+                <span>ปีแห่งประสบการณ์</span>
+              </div>
+              <div>
+                <strong>15K+</strong>
+                <span>เคสที่ไว้วางใจ</span>
+              </div>
+              <div>
+                <strong>98%</strong>
+                <span>ความพึงพอใจ</span>
+              </div>
+            </div>
+            <button className="text-link" type="button" onClick={openBooking}>
+              ปรึกษาแพทย์ฟรี <span>→</span>
+            </button>
+          </div>
+
+          <div className="before-after">
+            <div className="ba-image ba-after" />
+            <div
+              className="ba-image ba-before"
+              style={{ clipPath: `inset(0 ${100 - beforeAfter}% 0 0)` }}
+            />
+            <span className="ba-label before">ก่อนดูแล</span>
+            <span className="ba-label after">หลังดูแล</span>
+            <div className="ba-line" style={{ left: `${beforeAfter}%` }}>
+              <span>↔</span>
+            </div>
+            <input
+              aria-label="เลื่อนเพื่อเปรียบเทียบก่อนและหลัง"
+              type="range"
+              min="12"
+              max="88"
+              value={beforeAfter}
+              onChange={(event) => setBeforeAfter(Number(event.target.value))}
+            />
+          </div>
+        </div>
+      </section>
+
+      <section className="promotion-section" id="promotion">
+        <div className="container promotion-card">
+          <div>
+            <span className="section-kicker light">WELCOME PRIVILEGE</span>
+            <h2>สิทธิพิเศษสำหรับลูกค้าใหม่</h2>
+            <p>รับคำปรึกษาและวิเคราะห์ใบหน้าโดยแพทย์ ไม่มีค่าใช้จ่าย</p>
+          </div>
+          <button className="button button-gold" type="button" onClick={openBooking}>
+            รับสิทธิ์ปรึกษาฟรี <span>→</span>
+          </button>
+        </div>
+      </section>
+
+      <footer id="contact">
+        <div className="container footer-grid">
+          <div>
+            <a className="brand footer-brand" href="#home">
+              <strong>TIC</strong>
+              <span>CLINIC</span>
+            </a>
+            <p>
+              คลินิกความงามที่เชื่อว่าความสวยที่ดีที่สุด
+              คือความสวยที่ยังคงเป็นตัวคุณ
+            </p>
+          </div>
+          <div>
+            <h3>บริการ</h3>
+            <a href="#services">ปรับรูปหน้า</a>
+            <a href="#services">ยกกระชับ</a>
+            <a href="#services">ดูแลผิวพรรณ</a>
+          </div>
+          <div>
+            <h3>ติดต่อเรา</h3>
+            <p>18 ซอยอารีย์ 1 แขวงพญาไท กรุงเทพฯ</p>
+            <a href="tel:021234567">02 123 4567</a>
+            <a href="mailto:hello@ticclinic.co">hello@ticclinic.co</a>
+          </div>
+          <div>
+            <h3>เวลาทำการ</h3>
+            <p>เปิดบริการทุกวัน</p>
+            <strong>10:00 - 20:00 น.</strong>
+          </div>
+        </div>
+        <div className="container footer-bottom">
+          <span>© 2026 TIC Clinic. All rights reserved.</span>
+          <span>Medical care, made personal.</span>
+        </div>
+      </footer>
+
+      {bookingOpen && (
+        <div className="modal-backdrop" role="presentation" onMouseDown={() => setBookingOpen(false)}>
+          <section
+            className="booking-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="booking-title"
+            onMouseDown={(event) => event.stopPropagation()}
+          >
+            <button
+              className="modal-close"
+              type="button"
+              aria-label="ปิด"
+              onClick={() => setBookingOpen(false)}
+            >
+              ×
+            </button>
+            {!sent ? (
+              <>
+                <span className="section-kicker">PRIVATE CONSULTATION</span>
+                <h2 id="booking-title">นัดหมายปรึกษาแพทย์</h2>
+                <p>ฝากข้อมูลไว้ ทีมดูแลจะติดต่อกลับเพื่อยืนยันวันและเวลาที่สะดวก</p>
+                <form
+                  onSubmit={(event) => {
+                    event.preventDefault();
+                    setSent(true);
+                  }}
+                >
+                  <label>
+                    ชื่อ–นามสกุล
+                    <input required name="name" placeholder="กรอกชื่อของคุณ" />
+                  </label>
+                  <label>
+                    เบอร์โทรศัพท์
+                    <input required name="phone" inputMode="tel" placeholder="08x-xxx-xxxx" />
+                  </label>
+                  <label>
+                    บริการที่สนใจ
+                    <select name="service" defaultValue="">
+                      <option value="" disabled>
+                        เลือกบริการ
+                      </option>
+                      {programs.map((program) => (
+                        <option key={program.title}>{program.title}</option>
+                      ))}
+                    </select>
+                  </label>
+                  <button className="button button-primary modal-submit" type="submit">
+                    ส่งข้อมูลนัดหมาย
+                  </button>
+                </form>
+              </>
+            ) : (
+              <div className="success-state">
+                <span>✓</span>
+                <h2>รับข้อมูลเรียบร้อยแล้ว</h2>
+                <p>ทีม TIC Clinic จะติดต่อกลับเพื่อยืนยันนัดหมายโดยเร็วที่สุด</p>
+                <button className="button button-primary" type="button" onClick={() => setBookingOpen(false)}>
+                  กลับสู่หน้าเว็บไซต์
+                </button>
+              </div>
+            )}
+          </section>
+        </div>
+      )}
+    </main>
+  );
+}
