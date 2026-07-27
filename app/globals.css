@@ -929,6 +929,10 @@ footer {
   letter-spacing: 0.05em;
 }
 
+.mobile-bottom-nav {
+  display: none;
+}
+
 .modal-backdrop {
   position: fixed;
   z-index: 100;
@@ -1078,28 +1082,40 @@ footer {
     width: min(100% - 40px, 760px);
   }
 
-  .topbar-meta {
+  .topbar {
     display: none;
   }
 
-  .topbar-inner {
-    justify-content: center;
-    text-align: center;
-  }
-
   .site-header {
-    height: 76px;
+    height: 88px;
+    background: #ffffff;
+    box-shadow: 0 5px 22px rgba(8, 42, 74, 0.06);
   }
 
-  .brand {
-    align-items: flex-start;
+  .nav-wrap {
+    position: relative;
+    justify-content: center;
+  }
+
+  .nav-wrap > .brand {
+    position: absolute;
+    left: 50%;
+    width: 126px;
+    align-items: center;
+    transform: translateX(-50%);
   }
 
   .brand strong {
-    font-size: 34px;
+    font-size: 38px;
+  }
+
+  .nav-wrap > .brand span {
+    font-size: 11px;
   }
 
   .menu-button {
+    position: absolute;
+    right: 0;
     width: 44px;
     height: 44px;
     display: grid;
@@ -1118,7 +1134,7 @@ footer {
 
   .main-nav {
     position: absolute;
-    top: 76px;
+    top: 88px;
     right: 0;
     left: 0;
     max-height: 0;
@@ -1154,6 +1170,102 @@ footer {
 
   .nav-booking {
     margin-top: 15px;
+  }
+
+  .mobile-bottom-nav {
+    position: fixed;
+    z-index: 70;
+    right: 10px;
+    bottom: calc(10px + env(safe-area-inset-bottom));
+    left: 10px;
+    height: 76px;
+    padding: 8px 8px 7px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    align-items: end;
+    border: 1px solid rgba(8, 42, 74, 0.09);
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.97);
+    box-shadow: 0 12px 40px rgba(5, 29, 52, 0.18);
+    backdrop-filter: blur(18px);
+  }
+
+  .mobile-bottom-nav > a,
+  .mobile-bottom-nav > button {
+    height: 58px;
+    min-width: 0;
+    padding: 4px 2px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 3px;
+    border: 0;
+    color: var(--navy);
+    background: transparent;
+    font-size: 9px;
+    font-weight: 600;
+  }
+
+  .mobile-bottom-nav > a:active,
+  .mobile-bottom-nav > button:active {
+    color: var(--gold);
+  }
+
+  .mobile-nav-icon {
+    height: 24px;
+    display: grid;
+    place-items: center;
+    color: var(--gold);
+    font-family: Georgia, serif;
+    font-size: 22px;
+    line-height: 1;
+  }
+
+  .mobile-bottom-nav .mobile-nav-home {
+    position: relative;
+    height: 66px;
+    align-self: end;
+    justify-content: flex-start;
+  }
+
+  .mobile-nav-logo {
+    position: absolute;
+    top: -27px;
+    left: 50%;
+    width: 64px;
+    height: 64px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 5px solid #ffffff;
+    border-radius: 50%;
+    color: #ffffff;
+    background: linear-gradient(145deg, #d4a650, #9e6c1e);
+    box-shadow:
+      0 8px 22px rgba(148, 99, 25, 0.3),
+      0 0 0 1px rgba(184, 132, 46, 0.16);
+    transform: translateX(-50%);
+  }
+
+  .mobile-nav-logo strong {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: 0.08em;
+  }
+
+  .mobile-nav-logo small {
+    margin-top: 3px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 6px;
+    letter-spacing: 0.18em;
+  }
+
+  footer {
+    padding-bottom: calc(110px + env(safe-area-inset-bottom));
   }
 
   .hero {

@@ -413,6 +413,36 @@ export default function Home() {
         </div>
       </footer>
 
+      <nav className="mobile-bottom-nav" aria-label="เมนูด่วนสำหรับมือถือ">
+        <a href="#reviews">
+          <span className="mobile-nav-icon" aria-hidden="true">▤</span>
+          <span>รีวิว</span>
+        </a>
+        <button type="button" onClick={openBooking}>
+          <span className="mobile-nav-icon" aria-hidden="true">◇</span>
+          <span>ปรึกษาฟรี</span>
+        </button>
+        <button
+          className="mobile-nav-home"
+          type="button"
+          aria-label="กลับสู่ด้านบน"
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        >
+          <span className="mobile-nav-logo">
+            <strong>TIC</strong>
+            <small>CLINIC</small>
+          </span>
+        </button>
+        <a href="#promotion">
+          <span className="mobile-nav-icon" aria-hidden="true">◆</span>
+          <span>โปรโมชั่น</span>
+        </a>
+        <a href="tel:021234567">
+          <span className="mobile-nav-icon" aria-hidden="true">⌕</span>
+          <span>โทร</span>
+        </a>
+      </nav>
+
       {bookingOpen && (
         <div className="modal-backdrop" role="presentation" onMouseDown={() => setBookingOpen(false)}>
           <section
