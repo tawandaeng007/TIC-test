@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { type CSSProperties, useEffect, useRef, useState } from "react";
 import { CalendarHeart, Gift, MessageSquareText, Phone } from "lucide-react";
 
 const programs = [
@@ -139,6 +139,10 @@ const pageDetails: Record<
   },
 };
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+const siteHref = (path: string) =>
+  path === "/" ? `${basePath}/` : `${basePath}${path}`;
+
 export default function ClinicSite({ page = "home" }: { page?: ClinicPage }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [bookingOpen, setBookingOpen] = useState(false);
@@ -167,7 +171,13 @@ export default function ClinicSite({ page = "home" }: { page?: ClinicPage }) {
   };
 
   return (
-    <main>
+    <main
+      style={
+        {
+          "--clinic-hero": `url("${siteHref("/images/tic-clinic-hero.png")}")`,
+        } as CSSProperties
+      }
+    >
       <div className="topbar">
         <div className="container topbar-inner">
           <span>🎁 โปรโมชั่นพิเศษสำหรับลูกค้าใหม่ ปรึกษาฟรี ไม่มีค่าใช้จ่าย</span>
@@ -181,7 +191,7 @@ export default function ClinicSite({ page = "home" }: { page?: ClinicPage }) {
 
       <header className="site-header">
         <div className="container nav-wrap">
-          <a className="brand" href="/" aria-label="TIC Clinic หน้าแรก">
+          <a className="brand" href={siteHref("/")} aria-label="TIC Clinic หน้าแรก">
             <strong>TIC</strong>
             <span>CLINIC</span>
           </a>
@@ -198,25 +208,25 @@ export default function ClinicSite({ page = "home" }: { page?: ClinicPage }) {
           </button>
 
           <nav className={menuOpen ? "main-nav is-open" : "main-nav"}>
-            <a className={page === "home" ? "active" : ""} href="/" onClick={() => setMenuOpen(false)}>
+            <a className={page === "home" ? "active" : ""} href={siteHref("/")} onClick={() => setMenuOpen(false)}>
               หน้าแรก
             </a>
-            <a className={page === "about" ? "active" : ""} href="/about" onClick={() => setMenuOpen(false)}>
+            <a className={page === "about" ? "active" : ""} href={siteHref("/about/")} onClick={() => setMenuOpen(false)}>
               เกี่ยวกับเรา
             </a>
-            <a className={page === "services" ? "active" : ""} href="/services" onClick={() => setMenuOpen(false)}>
+            <a className={page === "services" ? "active" : ""} href={siteHref("/services/")} onClick={() => setMenuOpen(false)}>
               บริการ
             </a>
-            <a className={page === "promotion" ? "active" : ""} href="/promotion" onClick={() => setMenuOpen(false)}>
+            <a className={page === "promotion" ? "active" : ""} href={siteHref("/promotion/")} onClick={() => setMenuOpen(false)}>
               โปรโมชั่น
             </a>
-            <a className={page === "reviews" ? "active" : ""} href="/reviews" onClick={() => setMenuOpen(false)}>
+            <a className={page === "reviews" ? "active" : ""} href={siteHref("/reviews/")} onClick={() => setMenuOpen(false)}>
               รีวิว
             </a>
-            <a className={page === "results" ? "active" : ""} href="/results" onClick={() => setMenuOpen(false)}>
+            <a className={page === "results" ? "active" : ""} href={siteHref("/results/")} onClick={() => setMenuOpen(false)}>
               ผลลัพธ์
             </a>
-            <a className={page === "contact" ? "active" : ""} href="/contact" onClick={() => setMenuOpen(false)}>
+            <a className={page === "contact" ? "active" : ""} href={siteHref("/contact/")} onClick={() => setMenuOpen(false)}>
               ติดต่อเรา
             </a>
             <button className="nav-booking" type="button" onClick={openBooking}>
@@ -249,7 +259,7 @@ export default function ClinicSite({ page = "home" }: { page?: ClinicPage }) {
                 จองคิวปรึกษา
                 <span>→</span>
               </button>
-              <a className="button button-outline" href="/services">
+              <a className="button button-outline" href={siteHref("/services/")}>
                 สอบถามเพิ่มเติม
               </a>
             </div>
@@ -274,7 +284,7 @@ export default function ClinicSite({ page = "home" }: { page?: ClinicPage }) {
             <h1>{pageDetails[page].title}</h1>
             <p>{pageDetails[page].description}</p>
             <div className="inner-breadcrumb">
-              <a href="/">หน้าแรก</a>
+              <a href={siteHref("/")}>หน้าแรก</a>
               <span>›</span>
               <strong>{pageDetails[page].title}</strong>
             </div>
@@ -489,7 +499,7 @@ export default function ClinicSite({ page = "home" }: { page?: ClinicPage }) {
               </p>
               <div className="contact-list">
                 <div><span>ที่ตั้ง</span><strong>จังหวัดสระบุรี ประเทศไทย</strong></div>
-                <div><span>โทรศัพท์</span><a href="/contact">02 XXX XXXX</a></div>
+                <div><span>โทรศัพท์</span><a href={siteHref("/contact/")}>02 XXX XXXX</a></div>
                 <div><span>อีเมล</span><a href="mailto:hello@ticclinic.co">hello@ticclinic.co</a></div>
                 <div><span>เวลาทำการ</span><strong>ทุกวัน 10:00 - 20:00 น.</strong></div>
               </div>
@@ -511,7 +521,7 @@ export default function ClinicSite({ page = "home" }: { page?: ClinicPage }) {
       <footer id="contact">
         <div className="container footer-grid">
           <div>
-            <a className="brand footer-brand" href="/">
+            <a className="brand footer-brand" href={siteHref("/")}>
               <strong>TIC</strong>
               <span>CLINIC</span>
             </a>
@@ -522,14 +532,14 @@ export default function ClinicSite({ page = "home" }: { page?: ClinicPage }) {
           </div>
           <div>
             <h3>บริการ</h3>
-            <a href="/services">ปรับรูปหน้า</a>
-            <a href="/services">ยกกระชับ</a>
-            <a href="/services">ดูแลผิวพรรณ</a>
+            <a href={siteHref("/services/")}>ปรับรูปหน้า</a>
+            <a href={siteHref("/services/")}>ยกกระชับ</a>
+            <a href={siteHref("/services/")}>ดูแลผิวพรรณ</a>
           </div>
           <div>
             <h3>ติดต่อเรา</h3>
             <p>จังหวัดสระบุรี ประเทศไทย</p>
-            <a href="/contact">02 XXX XXXX</a>
+            <a href={siteHref("/contact/")}>02 XXX XXXX</a>
             <a href="mailto:hello@ticclinic.co">hello@ticclinic.co</a>
           </div>
           <div>
@@ -545,7 +555,7 @@ export default function ClinicSite({ page = "home" }: { page?: ClinicPage }) {
       </footer>
 
       <nav className="mobile-bottom-nav" aria-label="เมนูด่วนสำหรับมือถือ">
-        <a href="/reviews">
+        <a href={siteHref("/reviews/")}>
           <span className="mobile-nav-icon" aria-hidden="true">
             <MessageSquareText />
           </span>
@@ -560,20 +570,20 @@ export default function ClinicSite({ page = "home" }: { page?: ClinicPage }) {
         <a
           className="mobile-nav-home"
           aria-label="กลับสู่ด้านบน"
-          href="/"
+          href={siteHref("/")}
         >
           <span className="mobile-nav-logo">
             <strong>TIC</strong>
             <small>CLINIC</small>
           </span>
         </a>
-        <a href="/promotion">
+        <a href={siteHref("/promotion/")}>
           <span className="mobile-nav-icon" aria-hidden="true">
             <Gift />
           </span>
           <span>โปรโมชั่น</span>
         </a>
-        <a href="/contact">
+        <a href={siteHref("/contact/")}>
           <span className="mobile-nav-icon" aria-hidden="true">
             <Phone />
           </span>

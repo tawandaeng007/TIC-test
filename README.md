@@ -39,6 +39,13 @@ git remote add origin https://github.com/USERNAME/REPOSITORY.git
 git push -u origin main
 ```
 
-โปรเจกต์นี้ใช้ vinext และสร้างผลลัพธ์สำหรับ Cloudflare Workers ได้จากคำสั่ง
-`npm run build` หากต้องการเผยแพร่เป็นเว็บไซต์ ควรเชื่อม GitHub repository
-กับโฮสต์ที่รองรับ Node.js หรือ Cloudflare Workers แทนการใช้ GitHub Pages แบบไฟล์สถิติโดยตรง
+## GitHub Pages
+
+โปรเจกต์สร้างเว็บไซต์แบบ static สำหรับ GitHub Pages ลงในโฟลเดอร์ `docs`
+
+```bash
+npm run build:pages
+```
+
+จากนั้น commit และ push โฟลเดอร์ `docs` ขึ้นสาขา `main` และตั้งค่า GitHub Pages
+ให้เผยแพร่จาก `main /docs`

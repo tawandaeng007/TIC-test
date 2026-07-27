@@ -197,7 +197,7 @@ button {
 .hero-image {
   position: absolute;
   inset: 0;
-  background-image: url("/images/tic-clinic-hero.png");
+  background-image: var(--clinic-hero);
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -374,7 +374,7 @@ button {
   border-bottom: 1px solid var(--line);
   background:
     linear-gradient(90deg, #ffffff 0 57%, rgba(255, 255, 255, 0.86) 68%, rgba(255, 255, 255, 0.28)),
-    url("/images/tic-clinic-hero.png") 84% 34% / 720px auto no-repeat;
+    var(--clinic-hero) 84% 34% / 720px auto no-repeat;
 }
 
 .inner-hero::after {
@@ -507,7 +507,7 @@ button {
   position: relative;
   height: 155px;
   overflow: hidden;
-  background-image: url("/images/tic-clinic-hero.png");
+  background-image: var(--clinic-hero);
   background-repeat: no-repeat;
   background-size: 820px auto;
 }
@@ -613,7 +613,7 @@ button {
   border-radius: 14px;
   background:
     linear-gradient(0deg, rgba(5, 29, 52, 0.08), transparent 45%),
-    url("/images/tic-clinic-hero.png") 16% center / cover no-repeat;
+    var(--clinic-hero) 16% center / cover no-repeat;
   box-shadow: 0 24px 65px rgba(8, 42, 74, 0.12);
 }
 
@@ -856,7 +856,7 @@ button {
 .ba-image {
   position: absolute;
   inset: 0;
-  background-image: url("/images/tic-clinic-hero.png");
+  background-image: var(--clinic-hero);
   background-size: cover;
   background-position: 18% center;
 }
@@ -1010,7 +1010,7 @@ button {
   align-items: flex-end;
   background:
     linear-gradient(0deg, rgba(5, 29, 52, 0.72), rgba(5, 29, 52, 0.02) 58%),
-    url("/images/tic-clinic-hero.png") 12% center / cover no-repeat;
+    var(--clinic-hero) 12% center / cover no-repeat;
 }
 
 .contact-visual > div {
@@ -1523,7 +1523,7 @@ footer {
     min-height: 310px;
     background:
       linear-gradient(90deg, #ffffff 0 54%, rgba(255, 255, 255, 0.88) 72%, rgba(255, 255, 255, 0.38)),
-      url("/images/tic-clinic-hero.png") 82% 32% / 600px auto no-repeat;
+      var(--clinic-hero) 82% 32% / 600px auto no-repeat;
   }
 
   .inner-hero-content {
@@ -1616,7 +1616,7 @@ footer {
     align-items: flex-end;
     background:
       linear-gradient(0deg, #ffffff 0 55%, rgba(255, 255, 255, 0.72) 72%, rgba(255, 255, 255, 0.12)),
-      url("/images/tic-clinic-hero.png") 18% 36% / auto 300px no-repeat;
+      var(--clinic-hero) 18% 36% / auto 300px no-repeat;
   }
 
   .inner-hero-content {
