@@ -365,6 +365,68 @@ button {
   font-size: 10px;
 }
 
+.inner-hero {
+  position: relative;
+  min-height: 330px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+  background:
+    linear-gradient(90deg, #ffffff 0 57%, rgba(255, 255, 255, 0.86) 68%, rgba(255, 255, 255, 0.28)),
+    url("/images/tic-clinic-hero.png") 84% 34% / 720px auto no-repeat;
+}
+
+.inner-hero::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  background: linear-gradient(90deg, transparent, rgba(184, 132, 46, 0.05));
+  pointer-events: none;
+}
+
+.inner-hero-content {
+  position: relative;
+  z-index: 1;
+  padding-block: 60px;
+}
+
+.inner-hero h1 {
+  max-width: 680px;
+  margin: 12px 0 10px;
+  color: var(--navy);
+  font-size: clamp(36px, 4vw, 56px);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.04em;
+}
+
+.inner-hero p {
+  max-width: 610px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.inner-breadcrumb {
+  margin-top: 28px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: #87919a;
+  font-size: 9px;
+}
+
+.inner-breadcrumb a:hover {
+  color: var(--gold);
+}
+
+.inner-breadcrumb strong {
+  color: var(--navy);
+  font-weight: 600;
+}
+
 .section-shell {
   padding: 62px 0;
 }
@@ -532,6 +594,47 @@ button {
     radial-gradient(circle at 10% 20%, rgba(41, 85, 120, 0.32), transparent 30%),
     linear-gradient(125deg, #092f52, #051f38 70%);
   color: #fff;
+}
+
+.about-story {
+  padding: 76px 0;
+  background: #ffffff;
+}
+
+.about-story-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: clamp(50px, 8vw, 110px);
+}
+
+.about-story-image {
+  min-height: 480px;
+  border-radius: 14px;
+  background:
+    linear-gradient(0deg, rgba(5, 29, 52, 0.08), transparent 45%),
+    url("/images/tic-clinic-hero.png") 16% center / cover no-repeat;
+  box-shadow: 0 24px 65px rgba(8, 42, 74, 0.12);
+}
+
+.about-story-copy h2 {
+  margin: 12px 0 22px;
+  color: var(--navy);
+  font-size: clamp(36px, 4vw, 53px);
+  font-weight: 500;
+  line-height: 1.22;
+  letter-spacing: -0.04em;
+}
+
+.about-story-copy p {
+  margin: 0 0 13px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.9;
+}
+
+.about-story-copy .button {
+  margin-top: 20px;
 }
 
 .trust-grid {
@@ -834,6 +937,107 @@ button {
 .promotion-section {
   padding: 55px 0;
   background: #ffffff;
+}
+
+.contact-page {
+  padding: 76px 0;
+  background: #ffffff;
+}
+
+.contact-page-grid {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow: 0 22px 60px rgba(8, 42, 74, 0.08);
+}
+
+.contact-panel {
+  padding: clamp(35px, 5vw, 68px);
+}
+
+.contact-panel h2 {
+  margin: 11px 0 12px;
+  color: var(--navy);
+  font-size: clamp(32px, 4vw, 48px);
+  font-weight: 500;
+  line-height: 1.22;
+  letter-spacing: -0.04em;
+}
+
+.contact-panel > p {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+.contact-list {
+  margin: 26px 0;
+  display: grid;
+  gap: 0;
+  border-top: 1px solid var(--line);
+}
+
+.contact-list div {
+  min-height: 58px;
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+  font-size: 11px;
+}
+
+.contact-list span {
+  color: #8b949c;
+}
+
+.contact-list strong,
+.contact-list a {
+  color: var(--navy);
+  font-weight: 600;
+}
+
+.contact-list a:hover {
+  color: var(--gold);
+}
+
+.contact-visual {
+  min-height: 570px;
+  padding: 38px;
+  display: flex;
+  align-items: flex-end;
+  background:
+    linear-gradient(0deg, rgba(5, 29, 52, 0.72), rgba(5, 29, 52, 0.02) 58%),
+    url("/images/tic-clinic-hero.png") 12% center / cover no-repeat;
+}
+
+.contact-visual > div {
+  display: flex;
+  flex-direction: column;
+  color: #ffffff;
+}
+
+.contact-visual span {
+  color: var(--gold-light);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+}
+
+.contact-visual strong {
+  margin-top: 5px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 27px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+}
+
+.contact-visual small {
+  margin-top: 6px;
+  color: rgba(255, 255, 255, 0.66);
+  font-size: 9px;
 }
 
 .promotion-card {
@@ -1315,6 +1519,34 @@ footer {
     font-size: 38px;
   }
 
+  .inner-hero {
+    min-height: 310px;
+    background:
+      linear-gradient(90deg, #ffffff 0 54%, rgba(255, 255, 255, 0.88) 72%, rgba(255, 255, 255, 0.38)),
+      url("/images/tic-clinic-hero.png") 82% 32% / 600px auto no-repeat;
+  }
+
+  .inner-hero-content {
+    padding-block: 50px;
+  }
+
+  .inner-hero p {
+    max-width: 520px;
+  }
+
+  .about-story-grid,
+  .contact-page-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-story-image {
+    min-height: 430px;
+  }
+
+  .contact-visual {
+    min-height: 430px;
+  }
+
   .trust-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 26px 0;
@@ -1379,6 +1611,30 @@ footer {
     padding-top: 285px;
   }
 
+  .inner-hero {
+    min-height: 325px;
+    align-items: flex-end;
+    background:
+      linear-gradient(0deg, #ffffff 0 55%, rgba(255, 255, 255, 0.72) 72%, rgba(255, 255, 255, 0.12)),
+      url("/images/tic-clinic-hero.png") 18% 36% / auto 300px no-repeat;
+  }
+
+  .inner-hero-content {
+    padding: 150px 0 36px;
+  }
+
+  .inner-hero h1 {
+    font-size: 32px;
+  }
+
+  .inner-hero p {
+    font-size: 11px;
+  }
+
+  .inner-breadcrumb {
+    margin-top: 18px;
+  }
+
   .hero h1 {
     font-size: 30px;
   }
@@ -1416,6 +1672,40 @@ footer {
 
   .trust-section {
     padding-block: 34px;
+  }
+
+  .about-story,
+  .contact-page {
+    padding: 48px 0;
+  }
+
+  .about-story-grid {
+    gap: 38px;
+  }
+
+  .about-story-image {
+    min-height: 350px;
+  }
+
+  .about-story-copy h2 {
+    font-size: 36px;
+  }
+
+  .contact-page-grid {
+    border-radius: 12px;
+  }
+
+  .contact-panel {
+    padding: 30px 22px;
+  }
+
+  .contact-list div {
+    grid-template-columns: 86px 1fr;
+  }
+
+  .contact-visual {
+    min-height: 340px;
+    padding: 24px;
   }
 
   .trust-grid {
