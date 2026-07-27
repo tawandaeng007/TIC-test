@@ -488,8 +488,8 @@ export default function ClinicSite({ page = "home" }: { page?: ClinicPage }) {
                 ทีมดูแลพร้อมช่วยแนะนำบริการที่เหมาะกับคุณ
               </p>
               <div className="contact-list">
-                <div><span>ที่ตั้ง</span><strong>18 ซอยอารีย์ 1 แขวงพญาไท กรุงเทพฯ</strong></div>
-                <div><span>โทรศัพท์</span><a href="tel:021234567">02 123 4567</a></div>
+                <div><span>ที่ตั้ง</span><strong>จังหวัดสระบุรี ประเทศไทย</strong></div>
+                <div><span>โทรศัพท์</span><a href="/contact">02 XXX XXXX</a></div>
                 <div><span>อีเมล</span><a href="mailto:hello@ticclinic.co">hello@ticclinic.co</a></div>
                 <div><span>เวลาทำการ</span><strong>ทุกวัน 10:00 - 20:00 น.</strong></div>
               </div>
@@ -500,7 +500,7 @@ export default function ClinicSite({ page = "home" }: { page?: ClinicPage }) {
             <div className="contact-visual" aria-hidden="true">
               <div>
                 <span>TIC CLINIC</span>
-                <strong>ARI, BANGKOK</strong>
+                <strong>SARABURI, THAILAND</strong>
                 <small>Medical care, made personal.</small>
               </div>
             </div>
@@ -528,8 +528,8 @@ export default function ClinicSite({ page = "home" }: { page?: ClinicPage }) {
           </div>
           <div>
             <h3>ติดต่อเรา</h3>
-            <p>18 ซอยอารีย์ 1 แขวงพญาไท กรุงเทพฯ</p>
-            <a href="tel:021234567">02 123 4567</a>
+            <p>จังหวัดสระบุรี ประเทศไทย</p>
+            <a href="/contact">02 XXX XXXX</a>
             <a href="mailto:hello@ticclinic.co">hello@ticclinic.co</a>
           </div>
           <div>
@@ -573,7 +573,7 @@ export default function ClinicSite({ page = "home" }: { page?: ClinicPage }) {
           </span>
           <span>โปรโมชั่น</span>
         </a>
-        <a href="tel:021234567">
+        <a href="/contact">
           <span className="mobile-nav-icon" aria-hidden="true">
             <Phone />
           </span>
