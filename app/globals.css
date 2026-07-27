@@ -7,8 +7,8 @@
   --navy-soft: #173c5d;
   --gold: #b8842e;
   --gold-light: #d6af69;
-  --ivory: #fbf8f3;
-  --cream: #f1e8dc;
+  --ivory: #ffffff;
+  --cream: #f6f7f8;
   --ink: #0e2943;
   --muted: #637180;
   --line: rgba(8, 42, 74, 0.12);
@@ -91,7 +91,7 @@ button {
   z-index: 50;
   height: 92px;
   border-bottom: 1px solid var(--line);
-  background: rgba(255, 253, 249, 0.92);
+  background: rgba(255, 255, 255, 0.96);
   backdrop-filter: blur(18px);
 }
 
@@ -181,7 +181,7 @@ button {
   position: relative;
   min-height: 530px;
   overflow: hidden;
-  background: #f2e8dd;
+  background: #ffffff;
 }
 
 .hero::after {
@@ -189,8 +189,8 @@ button {
   inset: 0;
   content: "";
   background:
-    linear-gradient(90deg, transparent 0 42%, rgba(247, 241, 234, 0.18) 48%, #f8f3ed 71%),
-    linear-gradient(0deg, rgba(251, 248, 243, 0.18), transparent 28%);
+    linear-gradient(90deg, transparent 0 42%, rgba(255, 255, 255, 0.2) 48%, #ffffff 71%),
+    linear-gradient(0deg, rgba(255, 255, 255, 0.18), transparent 28%);
   pointer-events: none;
 }
 
@@ -583,7 +583,7 @@ button {
 }
 
 .reviews-section {
-  background: #fffdfa;
+  background: #ffffff;
 }
 
 .split-heading > p {
@@ -671,9 +671,7 @@ button {
 
 .results-section {
   padding: 75px 0;
-  background:
-    linear-gradient(90deg, rgba(244, 237, 228, 0.96), rgba(251, 248, 243, 0.94)),
-    url("/images/tic-clinic-hero.png") center / cover;
+  background: #ffffff;
 }
 
 .results-grid {
@@ -835,7 +833,7 @@ button {
 
 .promotion-section {
   padding: 55px 0;
-  background: #fffdfa;
+  background: #ffffff;
 }
 
 .promotion-card {
@@ -956,7 +954,7 @@ footer {
   overflow-y: auto;
   padding: 42px;
   border-radius: 14px;
-  background: #fffdfa;
+  background: #ffffff;
   box-shadow: 0 30px 80px rgba(0, 0, 0, 0.25);
   animation: modalIn 220ms ease both;
 }
@@ -1130,7 +1128,7 @@ footer {
     flex-direction: column;
     align-items: stretch;
     gap: 0;
-    background: rgba(255, 253, 249, 0.98);
+    background: rgba(255, 255, 255, 0.99);
     box-shadow: 0 20px 30px rgba(8, 42, 74, 0.1);
     opacity: 0;
     transition:
@@ -1170,7 +1168,7 @@ footer {
   }
 
   .hero::after {
-    background: linear-gradient(0deg, #f8f3ed 38%, transparent 68%);
+    background: linear-gradient(0deg, #ffffff 38%, transparent 68%);
   }
 
   .hero-inner {
