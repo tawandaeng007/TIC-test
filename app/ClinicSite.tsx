@@ -172,7 +172,7 @@ export default function ClinicSite({ page = "home" }: { page?: ClinicPage }) {
         <div className="container topbar-inner">
           <span>🎁 โปรโมชั่นพิเศษสำหรับลูกค้าใหม่ ปรึกษาฟรี ไม่มีค่าใช้จ่าย</span>
           <div className="topbar-meta">
-            <span>⌖ สาขา อารีย์</span>
+            <span>⌖ สาขา สระบุรี</span>
             <span className="topbar-divider" />
             <span>เปิดบริการทุกวัน 10:00 - 20:00 น.</span>
           </div>
