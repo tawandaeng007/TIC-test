@@ -38,6 +38,11 @@
 ทดสอบขนาดจอจำลอง 320–1440px รวม iPad Split View, หมุนจอระหว่างสุ่ม และ reduced motion
 การทดสอบจอจำลองไม่ใช่การทดสอบ Safari บนอุปกรณ์ Apple จริง
 
+ตรวจปัญหาวงล้อยืดด้วย `node scripts/check-wheel-layout.mjs` (ต้องมี Playwright
+และ WebKit/Chromium สำหรับทดสอบ หรือกำหนด `PLAYWRIGHT_MODULE` เป็น ESM URL ของแพ็กเกจที่ติดตั้งไว้)
+กำหนด `WHEEL_TEST_URL` เพื่อทดสอบเว็บปลายทาง และ `CHROMIUM_CHANNEL` หากใช้ Chrome/Edge
+ชุดนี้วัดกรอบ จานหมุน และปุ่มกลางทั้งตอนหยุดและระหว่างหมุนพร้อมเปลี่ยนขนาดจอ
+
 ภาพแชร์ลิงก์อยู่ที่ `public/og.png` สร้างด้วย built-in imagegen
 จาก brief: premium landscape TIC CLINIC / TIC Lucky Spin / A little luck, with love.;
 royal-blue, icy-white, gold; glass bubbles, silky backdrop, ten blank wheel sections;

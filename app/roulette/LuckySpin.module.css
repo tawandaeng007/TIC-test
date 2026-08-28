@@ -49,9 +49,13 @@
 .smallNote { display:flex; align-items:center; gap:8px; margin-top:28px; font-size:12px; color:#6a7f9e; }
 .wheelSection { min-width:0; align-self:center; text-align:center; position:relative; }
 .wheelWrap { position:relative; padding-bottom:24px; container-type:inline-size; }
-.rim { position:relative; width:100%; aspect-ratio:1; border-radius:50%; padding:4.8%; background:linear-gradient(145deg,#9c651d 0%,#fff3cc 11%,#d9a14a 23%,#fff6d8 47%,#b87b24 71%,#eec778 88%,#fff0c9); border:1px solid #cc9c50; box-shadow:0 1px 0 2px #ffffffc2,0 16px 25px #2a6ccb20; isolation:isolate; }
+.rim { position:relative; width:100%; height:auto; aspect-ratio:auto; border-radius:50%; padding:0; background:linear-gradient(145deg,#9c651d 0%,#fff3cc 11%,#d9a14a 23%,#fff6d8 47%,#b87b24 71%,#eec778 88%,#fff0c9); border:1px solid #cc9c50; box-shadow:0 1px 0 2px #ffffffc2,0 16px 25px #2a6ccb20; isolation:isolate; }
+/* A width-based spacer owns the square. In WebKit, an in-flow height:100% disc
+   inside an aspect-ratio box with padding grew both the rim and disc vertically. */
+.rim::after { content:''; display:block; padding-top:100%; pointer-events:none; }
 .rim::before { content:''; position:absolute; inset:.8%; border-radius:50%; background:linear-gradient(130deg,#4ca8ff,#0c4ec2 36%,#82bafe 46%,#0861e5 70%,#003a9e); box-shadow:inset 0 2px 3px white,inset 0 -3px 5px #002772; border:1px solid #eaf4ff; z-index:-1; }
-.wheel { width:100%; height:100%; border-radius:50%; position:relative; transform:rotate(var(--rotation)); background:repeating-conic-gradient(from -18deg,#ffffff00 0deg 35.6deg,#ffffffed 35.6deg 36deg),repeating-conic-gradient(from -18deg,#f9fcff 0deg,#e8f0ff 36deg,#b7dcff 36deg,#d8ecff 72deg); border:3px solid #e7f7ff; box-shadow:0 0 0 2px #3a86e6,0 0 0 4px #f1f7ff9c,inset 0 0 18px #4690e657; }
+.wheel { position:absolute; inset:4.8%; width:auto; height:auto; border-radius:50%; transform:rotate(var(--rotation)); transform-origin:50% 50%; background:repeating-conic-gradient(from -18deg,#ffffff00 0deg 35.6deg,#ffffffed 35.6deg 36deg),repeating-conic-gradient(from -18deg,#f9fcff 0deg,#e8f0ff 36deg,#b7dcff 36deg,#d8ecff 72deg); border:3px solid #e7f7ff; box-shadow:0 0 0 2px #3a86e6,0 0 0 4px #f1f7ff9c,inset 0 0 18px #4690e657; }
+.wheelWrap[data-state="spinning"] .wheel { will-change:transform; }
 .labelPosition { position:absolute; width:25%; transform:translate(-50%,-50%); }
 .label { display:flex; flex-direction:column; align-items:center; gap:1.65cqw; transform:rotate(calc(-1 * var(--rotation))); font-size:2.65cqw; font-weight:600; line-height:1.4; color:#073d9f; text-align:center; }
 .number { display:grid; place-items:center; background:linear-gradient(#438aff,#0850cb); border:1.5px solid #fff; box-shadow:0 1px 3px #1862c73a; width:4.8cqw; height:4.8cqw; border-radius:50%; color:white; font-size:3cqw; font-weight:600; line-height:1; }
@@ -173,7 +177,7 @@
 .glassSheen { position:absolute; inset:4.8%; border-radius:50%; overflow:hidden; pointer-events:none; z-index:3; }
 .glassSheen::before { content:''; position:absolute; width:40%; height:150%; left:-60%; top:-25%; background:linear-gradient(90deg,transparent,#ffffff08 20%,#ffffff63 50%,#ffffff0a 79%,transparent); transform:rotate(-25deg); animation:glassSweep 8s ease-in-out infinite; }
 .wheelWrap[data-state="spinning"] .glassSheen::before { animation-duration:3.6s; opacity:.65; }
-.hub { isolation:isolate; }
+.hub { isolation:isolate; height:23%; padding:0; min-width:0; min-height:0; aspect-ratio:auto; }
 .hub::before { content:''; position:absolute; inset:-10%; border:2px solid #84b4f7; border-radius:50%; opacity:.4; pointer-events:none; z-index:-1; animation:hubRipple 3.2s ease-out infinite; }
 .hub::after { content:''; position:absolute; inset:6%; border-radius:50%; border:1px solid #fff; box-shadow:inset 0 2px 7px #fff; pointer-events:none; }
 .hub:not(:disabled):hover { box-shadow:0 0 0 8px #c1dcffb0,0 6px 24px #044aaa69,inset 0 0 0 4px #e9f3ff; }
