@@ -7,7 +7,7 @@ test("confirmed rewards use exactly the current 100-ticket allocation", () => {
   assert.deepEqual(prizes.map((p) => p.name), ["ทอง 25 สตางค์", "ฉีดหน้าใส Chanel", "Botox (Korea) 50U", "ร้อยไหม Mono 10 เส้น", "Hifu 50 Shots", "Golden Spoon Tm.", "G8 (10 mins)", "Laser รักแร้", "BioLight (5 mins)", "Tm. Mask"]);
   const counts = Array(10).fill(0);
   for (let ticket = 0; ticket < 100; ticket++) counts[prizeIndexForTicket(ticket)]++;
-  assert.deepEqual(counts, [0, 4, 4, 4, 4, 8, 10, 15, 31, 20]);
+  assert.deepEqual(counts, [0, 5, 3, 3, 5, 10, 8, 15, 31, 20]);
   assert.ok(prizes.every((p) => p.valueBaht === 100));
 });
 
