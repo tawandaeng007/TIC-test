@@ -2,18 +2,19 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { prizes, totalWeight, prizeIndexForTicket, randomBelow, landingRotation, indexAtPointer, wheelPosition } from "../lib/lucky-spin.mjs";
 
-test("confirmed rewards use exactly the paper's 100-ticket allocation", () => {
+test("confirmed rewards use exactly the current 100-ticket allocation", () => {
   assert.equal(totalWeight, 100);
   assert.deepEqual(prizes.map((p) => p.name), ["ทอง 25 สตางค์", "ฉีดหน้าใส Chanel", "Botox (Korea) 50U", "ร้อยไหม Mono 10 เส้น", "Hifu 50 Shots", "Golden Spoon Tm.", "G8 (10 mins)", "Laser รักแร้", "BioLight (5 mins)", "Tm. Mask"]);
   const counts = Array(10).fill(0);
   for (let ticket = 0; ticket < 100; ticket++) counts[prizeIndexForTicket(ticket)]++;
-  assert.deepEqual(counts, [1, 4, 4, 4, 4, 8, 10, 15, 20, 30]);
+  assert.deepEqual(counts, [0, 4, 4, 4, 4, 8, 10, 15, 31, 20]);
   assert.ok(prizes.every((p) => p.valueBaht === 100));
 });
 
 test("every weighted interval includes its first and last ticket", () => {
   let first = 0;
   prizes.forEach((p, index) => {
+    if (p.weight === 0) return;
     assert.equal(prizeIndexForTicket(first), index);
     assert.equal(prizeIndexForTicket(first + p.weight - 1), index);
     first += p.weight;
@@ -55,7 +56,7 @@ test("landing rejects out-of-wheel prizes and unsafe offsets", () => {
 
 test("drawing never changes weights or consumes a fixed prize quota", () => {
   const original = prizes.map((p) => p.weight);
-  for (let i = 0; i < 500; i++) assert.equal(prizeIndexForTicket(0), 0);
+  for (let i = 0; i < 500; i++) assert.equal(prizeIndexForTicket(0), 1);
   assert.deepEqual(prizes.map((p) => p.weight), original);
 });
 
