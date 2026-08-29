@@ -48,12 +48,12 @@ test("server-renders every clinic page", async () => {
   }
 });
 
-test("Lucky Spin shows names and placeholder values, never probability copy or prize images", async () => {
+test("Lucky Spin shows confirmed values, never probability copy or prize images", async () => {
   const response = await render("/roulette");
   const html = await response.text();
   const visible = html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, "").replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, "").replace(/<[^>]+>/g, "");
   assert.match(visible, /หมุนรับโชค/);
-  assert.match(visible, /100/);
+  for (const value of ["17,900", "4,999", "3,599", "3,999", "2,999", "999", "1,599"]) assert.match(visible, new RegExp(value));
   assert.match(visible, /ของรางวัลไม่สามารถแลกเปลี่ยน/);
   assert.doesNotMatch(visible, /%|เปอร์เซ็นต์|probability|weight|รูเล็ต|มูลค่ารวมกว่าแสน/);
   const images = [...html.matchAll(/<img\b[^>]*>/g)].map((match) => match[0]);

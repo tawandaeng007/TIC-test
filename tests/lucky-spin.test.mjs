@@ -8,7 +8,7 @@ test("confirmed rewards use exactly the current 100-ticket allocation", () => {
   const counts = Array(10).fill(0);
   for (let ticket = 0; ticket < 100; ticket++) counts[prizeIndexForTicket(ticket)]++;
   assert.deepEqual(counts, [0, 5, 3, 3, 5, 10, 8, 15, 31, 20]);
-  assert.ok(prizes.every((p) => p.valueBaht === 100));
+  assert.deepEqual(prizes.map((p) => p.valueBaht), [17900, 4999, 3599, 3999, 2999, 2999, 999, 999, 1599, 1599]);
 });
 
 test("every weighted interval includes its first and last ticket", () => {
