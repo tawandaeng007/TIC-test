@@ -9,6 +9,8 @@ const routes = [
   ["/reviews", "เสียงจากผู้ใช้บริการจริง"],
   ["/results", "ผลลัพธ์ที่ยังคงเป็นคุณ"],
   ["/contact", "เริ่มต้นปรึกษาเราได้วันนี้"],
+  ["/cart", "ตะกร้าของคุณ"],
+  ["/checkout", "ข้อมูลสำหรับรับบริการ"],
   ["/roulette", "TIC Lucky Spin"],
 ];
 
@@ -46,6 +48,16 @@ test("server-renders every clinic page", async () => {
     assert.doesNotMatch(html, /codex-preview|Your site is taking shape/);
     if (path === "/") assert.match(html, /<footer\b/, "the main clinic footer remains unchanged");
   }
+});
+
+test("cart and checkout are clearly demo-only and never render card fields", async () => {
+  const cartHtml = await (await render("/cart")).text();
+  const checkoutHtml = await (await render("/checkout")).text();
+
+  assert.match(cartHtml, /ยังไม่มีการตัดเงินหรือรับข้อมูลบัตร/);
+  assert.match(checkoutHtml, /หน้าทดลอง/);
+  assert.match(checkoutHtml, /ไม่มีการส่งคำสั่งซื้อ ตัดเงิน/);
+  assert.doesNotMatch(checkoutHtml, /name="(?:card|cardNumber|cvv|cvc|expiry)"/i);
 });
 
 test("Lucky Spin shows confirmed values, never probability copy or prize images", async () => {

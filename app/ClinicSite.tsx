@@ -1,45 +1,9 @@
 "use client";
 
 import { type CSSProperties, useEffect, useRef, useState } from "react";
-import { CalendarHeart, Gift, MessageSquareText, Phone } from "lucide-react";
-
-const programs = [
-  {
-    tag: "Signature",
-    title: "โบท็อกซ์ริ้วรอย",
-    detail: "ลดริ้วรอย คืนความอ่อนเยาว์",
-    price: "2,990.-",
-    position: "16%",
-  },
-  {
-    tag: "Popular",
-    title: "ฟิลเลอร์ปรับรูปหน้า",
-    detail: "ปรับรูปหน้า ดูมีมิติอย่างเป็นธรรมชาติ",
-    price: "6,990.-",
-    position: "24%",
-  },
-  {
-    tag: "Brightening",
-    title: "เลเซอร์หน้าใส",
-    detail: "ผิวกระจ่างใส ลดฝ้า จุดด่างดำ",
-    price: "3,990.-",
-    position: "34%",
-  },
-  {
-    tag: "Lift & Firm",
-    title: "ยกกระชับ Ultherapy",
-    detail: "ยกกระชับผิว ไม่ต้องผ่าตัด",
-    price: "39,900.-",
-    position: "12%",
-  },
-  {
-    tag: "Healthy Glow",
-    title: "Skin Booster",
-    detail: "ผิวชุ่มชื้น ฉ่ำวาว สุขภาพดี",
-    price: "4,990.-",
-    position: "28%",
-  },
-];
+import { CalendarHeart, MessageSquareText, Phone, ShoppingBag } from "lucide-react";
+import { useCart } from "@/components/CartProvider";
+import { catalog as programs, formatBaht } from "@/lib/catalog";
 
 const reviews = [
   {
@@ -144,10 +108,12 @@ const siteHref = (path: string) =>
   path === "/" ? `${basePath}/` : `${basePath}${path}`;
 
 export default function ClinicSite({ page = "home" }: { page?: ClinicPage }) {
+  const { addItem, itemCount } = useCart();
   const [menuOpen, setMenuOpen] = useState(false);
   const [bookingOpen, setBookingOpen] = useState(false);
   const [beforeAfter, setBeforeAfter] = useState(52);
   const [sent, setSent] = useState(false);
+  const [addedItem, setAddedItem] = useState<string | null>(null);
   const programRail = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -156,6 +122,12 @@ export default function ClinicSite({ page = "home" }: { page?: ClinicPage }) {
       document.body.style.overflow = "";
     };
   }, [bookingOpen]);
+
+  useEffect(() => {
+    if (!addedItem) return;
+    const timer = window.setTimeout(() => setAddedItem(null), 2200);
+    return () => window.clearTimeout(timer);
+  }, [addedItem]);
 
   const scrollPrograms = (direction: number) => {
     programRail.current?.scrollBy({
@@ -170,8 +142,14 @@ export default function ClinicSite({ page = "home" }: { page?: ClinicPage }) {
     setMenuOpen(false);
   };
 
+  const addProgram = (id: string, title: string) => {
+    addItem(id);
+    setAddedItem(title);
+  };
+
   return (
     <main
+      className="clinic-site"
       style={
         {
           "--clinic-hero": `url("${siteHref("/images/tic-clinic-hero.png")}")`,
@@ -228,6 +206,11 @@ export default function ClinicSite({ page = "home" }: { page?: ClinicPage }) {
             </a>
             <a className={page === "contact" ? "active" : ""} href={siteHref("/contact/")} onClick={() => setMenuOpen(false)}>
               ติดต่อเรา
+            </a>
+            <a className="nav-cart" href={siteHref("/cart/")} onClick={() => setMenuOpen(false)} aria-label={`ตะกร้า ${itemCount} รายการ`}>
+              <ShoppingBag aria-hidden="true" />
+              <span>ตะกร้า</span>
+              {itemCount > 0 && <strong>{itemCount}</strong>}
             </a>
             <button className="nav-booking" type="button" onClick={openBooking}>
               จองคิว
@@ -325,10 +308,10 @@ export default function ClinicSite({ page = "home" }: { page?: ClinicPage }) {
                   <div className="price-row">
                     <div>
                       <small>เริ่มต้น</small>
-                      <strong>{program.price}</strong>
+                      <strong>{formatBaht(program.price)}.-</strong>
                     </div>
-                    <button type="button" onClick={openBooking} aria-label={`จอง ${program.title}`}>
-                      ↗
+                    <button className="add-cart-button" type="button" onClick={() => addProgram(program.id, program.title)} aria-label={`เพิ่ม ${program.title} ลงตะกร้า`}>
+                      <ShoppingBag aria-hidden="true" />
                     </button>
                   </div>
                 </div>
@@ -577,11 +560,11 @@ export default function ClinicSite({ page = "home" }: { page?: ClinicPage }) {
             <small>CLINIC</small>
           </span>
         </a>
-        <a href={siteHref("/promotion/")}>
+        <a href={siteHref("/cart/")}>
           <span className="mobile-nav-icon" aria-hidden="true">
-            <Gift />
+            <ShoppingBag />
           </span>
-          <span>โปรโมชั่น</span>
+          <span>ตะกร้า{itemCount > 0 ? ` (${itemCount})` : ""}</span>
         </a>
         <a href={siteHref("/contact/")}>
           <span className="mobile-nav-icon" aria-hidden="true">
@@ -590,6 +573,12 @@ export default function ClinicSite({ page = "home" }: { page?: ClinicPage }) {
           <span>โทร</span>
         </a>
       </nav>
+
+      <div className={addedItem ? "cart-toast is-visible" : "cart-toast"} role="status" aria-live="polite">
+        <span>✓</span>
+        <div><strong>เพิ่มลงตะกร้าแล้ว</strong><small>{addedItem}</small></div>
+        <a href={siteHref("/cart/")}>ดูตะกร้า</a>
+      </div>
 
       {bookingOpen && (
         <div className="modal-backdrop" role="presentation" onMouseDown={() => setBookingOpen(false)}>

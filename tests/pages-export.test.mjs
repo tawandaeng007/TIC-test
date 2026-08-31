@@ -34,3 +34,11 @@ test("home and Lucky Spin have their own titles and correct social metadata", as
     }
   }
 });
+
+test("commerce pages are exported for GitHub Pages", async () => {
+  for (const [file, text] of [["cart/index.html", "ตะกร้าของคุณ"], ["checkout/index.html", "ข้อมูลสำหรับรับบริการ"]]) {
+    const html = await readFile(new URL(file, docs), "utf8");
+    assert.match(html, new RegExp(text));
+    assert.doesNotMatch(html, /name="(?:card|cardNumber|cvv|cvc|expiry)"/i);
+  }
+});
