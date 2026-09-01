@@ -1,7 +1,7 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { ArrowLeft, ShieldCheck, ShoppingBag } from "lucide-react";
+import { ArrowLeft, ShoppingBag } from "lucide-react";
 import { useCart } from "@/components/CartProvider";
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
@@ -18,12 +18,6 @@ export default function CommerceShell({
 
   return (
     <main className="commerce-page">
-      <div className="commerce-topbar">
-        <div className="container commerce-topbar-inner">
-          <span><ShieldCheck aria-hidden="true" /> เลือกโปรแกรมออนไลน์กับ TIC Clinic</span>
-          <span>ทีมคลินิกจะยืนยันรายการและเงื่อนไขก่อนชำระ</span>
-        </div>
-      </div>
       <header className="commerce-header">
         <div className="container commerce-header-inner">
           <a className="commerce-back" href={siteHref("/")}>
@@ -52,7 +46,7 @@ export default function CommerceShell({
       <footer className="commerce-footer">
         <div className="container">
           <span>TIC CLINIC · SARABURI</span>
-          <p>การสั่งซื้อจะสมบูรณ์เมื่อได้รับการยืนยันจากทีมคลินิก · ช่องทางชำระออนไลน์ยังไม่เปิดใช้งาน</p>
+          <p>ทีมคลินิกจะยืนยันรายการและเงื่อนไขก่อนชำระ · ช่องทางชำระออนไลน์ยังไม่เปิดใช้งาน</p>
         </div>
       </footer>
     </main>

@@ -132,17 +132,6 @@ export default function ClinicSite({ page = "home" }: { page?: ClinicPage }) {
         } as CSSProperties
       }
     >
-      <div className="topbar">
-        <div className="container topbar-inner">
-          <span>🎁 โปรโมชั่นพิเศษสำหรับลูกค้าใหม่ ปรึกษาฟรี ไม่มีค่าใช้จ่าย</span>
-          <div className="topbar-meta">
-            <span>⌖ สาขา สระบุรี</span>
-            <span className="topbar-divider" />
-            <span>เปิดบริการทุกวัน 10:00 - 20:00 น.</span>
-          </div>
-        </div>
-      </div>
-
       <header className="site-header">
         <div className="container nav-wrap">
           <a className="brand" href={siteHref("/")} aria-label="TIC Clinic หน้าแรก">
