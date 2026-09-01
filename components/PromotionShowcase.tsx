@@ -154,7 +154,7 @@ export default function PromotionShowcase({
               )}
               <div className="product-modal-price"><small>{selectedVariant ? "ราคาตัวเลือกนี้" : "ราคาโปรโมชั่น"}</small><strong>{formatBaht(selectedPrice)} บาท</strong></div>
               <p className="product-modal-note">ราคาและรายละเอียดเป็นไปตามเงื่อนไขในภาพโปรโมชั่น กรุณาให้ทีมคลินิกประเมินและยืนยันก่อนรับบริการ</p>
-              <button className="checkout-button" type="button" onClick={() => { onAdd(selected.id, selected.title, selectedVariant?.id); setSelected(null); }}><ShoppingBag /> เพิ่มลงตะกร้า</button>
+              <button className="checkout-button product-modal-add" type="button" onClick={() => { onAdd(selected.id, selected.title, selectedVariant?.id); setSelected(null); }}><ShoppingBag /> เพิ่มลงตะกร้า</button>
             </div>
           </section>
         </div>

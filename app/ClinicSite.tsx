@@ -2,7 +2,17 @@
 "use client";
 
 import { type CSSProperties, useEffect, useState } from "react";
-import { CalendarHeart, MessageSquareText, Phone, ShoppingBag } from "lucide-react";
+import {
+  CalendarHeart,
+  CheckCircle2,
+  Cpu,
+  HeartHandshake,
+  MessageSquareText,
+  Phone,
+  ShieldCheck,
+  ShoppingBag,
+  Stethoscope,
+} from "lucide-react";
 import { useCart } from "@/components/CartProvider";
 import PromotionShowcase from "@/components/PromotionShowcase";
 import SpinBackdrop from "@/components/SpinBackdrop";
@@ -18,22 +28,22 @@ const reviewCases = [
 
 const trustItems = [
   {
-    icon: "✦",
+    icon: ShieldCheck,
     title: "ปลอดภัยได้มาตรฐาน",
     detail: "ผ่านการรับรองจากกระทรวงสาธารณสุข",
   },
   {
-    icon: "◎",
+    icon: Stethoscope,
     title: "แพทย์ผู้เชี่ยวชาญ",
     detail: "ทีมแพทย์มากประสบการณ์ ดูแลอย่างใกล้ชิด",
   },
   {
-    icon: "◇",
+    icon: Cpu,
     title: "เทคโนโลยีทันสมัย",
     detail: "เครื่องมือระดับพรีเมียม อัปเดตล่าสุด",
   },
   {
-    icon: "♡",
+    icon: HeartHandshake,
     title: "ดูแลอย่างใส่ใจ",
     detail: "ให้คำปรึกษาก่อนและหลังทำทุกเคส",
   },
@@ -174,7 +184,7 @@ export default function ClinicSite({ page = "home" }: { page?: ClinicPage }) {
             <a className={page === "contact" ? "active" : ""} href={siteHref("/contact/")} onClick={() => setMenuOpen(false)}>
               ติดต่อเรา
             </a>
-            <a className="nav-cart" href={siteHref("/cart/")} onClick={() => setMenuOpen(false)} aria-label={`ตะกร้า ${itemCount} รายการ`}>
+            <a className={addedItem ? "nav-cart is-cart-bumping" : "nav-cart"} href={siteHref("/cart/")} onClick={() => setMenuOpen(false)} aria-label={`ตะกร้า ${itemCount} รายการ`}>
               <ShoppingBag aria-hidden="true" />
               <span>ตะกร้า</span>
               {itemCount > 0 && <strong>{itemCount}</strong>}
@@ -263,7 +273,9 @@ export default function ClinicSite({ page = "home" }: { page?: ClinicPage }) {
         <div className="container trust-grid">
           {trustItems.map((item) => (
             <article key={item.title}>
-              <div className="trust-icon">{item.icon}</div>
+              <div className="trust-icon">
+                <item.icon aria-hidden="true" />
+              </div>
               <div>
                 <h3>{item.title}</h3>
                 <p>{item.detail}</p>
@@ -403,7 +415,7 @@ export default function ClinicSite({ page = "home" }: { page?: ClinicPage }) {
             <TicLogo className="tic-logo-mobile" />
           </span>
         </a>
-        <a href={siteHref("/cart/")}>
+        <a className={addedItem ? "mobile-cart-link is-cart-bumping" : "mobile-cart-link"} href={siteHref("/cart/")}>
           <span className="mobile-nav-icon" aria-hidden="true">
             <ShoppingBag />
           </span>
@@ -417,8 +429,17 @@ export default function ClinicSite({ page = "home" }: { page?: ClinicPage }) {
         </a>
       </nav>
 
+      {addedItem && (
+        <div className="cart-fly-effect" key={`${addedItem}-${itemCount}`} aria-hidden="true">
+          <ShoppingBag />
+          <i />
+          <i />
+          <i />
+        </div>
+      )}
+
       <div className={addedItem ? "cart-toast is-visible" : "cart-toast"} role="status" aria-live="polite">
-        <span>✓</span>
+        <span><CheckCircle2 aria-hidden="true" /></span>
         <div><strong>เพิ่มลงตะกร้าแล้ว</strong><small>{addedItem}</small></div>
         <a href={siteHref("/cart/")}>ดูตะกร้า</a>
       </div>

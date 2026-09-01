@@ -36,3 +36,18 @@ test("multi-price promotions require a selected option and keep its price in the
   assert.match(cart, /lineKey: cartLineKey\(line\.id, variant\?\.id\)/);
   assert.match(cart, /unitPrice: variant\?\.price \?\? item\.price/);
 });
+
+test("mobile checkout action stays visible and trust cards use real icons", async () => {
+  const styles = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
+  const clinic = await readFile(new URL("../app/ClinicSite.tsx", import.meta.url), "utf8");
+  const showcase = await readFile(new URL("../components/PromotionShowcase.tsx", import.meta.url), "utf8");
+
+  assert.match(showcase, /checkout-button product-modal-add/);
+  assert.match(styles, /@media \(max-width: 760px\)[\s\S]*?\.product-modal-add\s*\{[\s\S]*?position:\s*absolute[\s\S]*?bottom:/);
+  assert.match(clinic, /ShieldCheck/);
+  assert.match(clinic, /Stethoscope/);
+  assert.match(clinic, /Cpu/);
+  assert.match(clinic, /HeartHandshake/);
+  assert.match(clinic, /cart-fly-effect/);
+  assert.doesNotMatch(clinic, /icon:\s*"[✦◎◇♡]"/);
+});
