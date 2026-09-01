@@ -6,10 +6,10 @@ export default function TicLogo({ className = "" }: { className?: string }) {
   return (
     <span className={`tic-logo ${className}`.trim()}>
       <img
-        src={`${basePath}/images/tic-clinic-logo.png`}
+        src={`${basePath}/images/tic-clinic-logo-transparent.png`}
         alt="TIC Clinic"
-        width={1254}
-        height={1254}
+        width={884}
+        height={570}
         draggable={false}
       />
     </span>

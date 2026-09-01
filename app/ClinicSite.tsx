@@ -120,8 +120,8 @@ export default function ClinicSite({ page = "home" }: { page?: ClinicPage }) {
     setMenuOpen(false);
   };
 
-  const addProgram = (id: string, title: string) => {
-    addItem(id);
+  const addProgram = (id: string, title: string, variantId?: string) => {
+    addItem(id, variantId);
     setAddedItem(title);
   };
 
@@ -130,7 +130,7 @@ export default function ClinicSite({ page = "home" }: { page?: ClinicPage }) {
       className="clinic-site"
       style={
         {
-          "--clinic-hero": `url("${siteHref("/images/tic-clinic-hero.png")}")`,
+          "--clinic-hero": `url("${siteHref("/images/tic-clinic-hero-v2.png")}")`,
         } as CSSProperties
       }
     >

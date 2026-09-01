@@ -67,7 +67,7 @@ test("main site uses supplied promotion artwork and removes fabricated result cl
 
   assert.match(homeHtml, /images\/promotions\/lip-filler\.jpg/);
   assert.match(homeHtml, /class="spin-backdrop"/);
-  assert.match(homeHtml, /images\/tic-clinic-logo\.png/);
+  assert.match(homeHtml, /images\/tic-clinic-logo-transparent\.png/);
   assert.match(promotionHtml, /โปรโมชั่นและโปรแกรมทั้งหมด/);
   assert.match(promotionHtml, /--promotion-art:url/);
   assert.match(visible, /Filler AMD 3 แถม 1/);

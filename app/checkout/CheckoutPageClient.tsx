@@ -178,8 +178,11 @@ function OrderSummary({ lines, itemCount, subtotal }: { lines: ReturnType<typeof
       <span className="summary-badge">ORDER SUMMARY</span>
       <h2>รายการของคุณ</h2>
       <div className="checkout-summary-lines">
-        {lines.map(({ item, quantity }) => (
-          <div key={item.id}><span>{item.title}<small>จำนวน {quantity}</small></span><strong>{formatBaht(item.price * quantity)}</strong></div>
+        {lines.map(({ item, variant, lineKey, unitPrice, quantity }) => (
+          <div key={lineKey}>
+            <span>{item.title}<small>{variant ? `${variant.label} · ` : ""}จำนวน {quantity}</small></span>
+            <strong>{formatBaht(unitPrice * quantity)}</strong>
+          </div>
         ))}
       </div>
       <div className="summary-row"><span>รวม {itemCount} รายการ</span><strong>ไม่มีค่าบริการ</strong></div>

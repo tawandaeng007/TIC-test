@@ -1946,6 +1946,227 @@ footer {
   }
 }
 
+/* Final storefront polish: transparent brand assets, option picker, and mobile-first alignment. */
+.tic-logo {
+  width: 116px;
+  aspect-ratio: 884 / 570;
+  overflow: visible;
+}
+
+.tic-logo img {
+  position: static;
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+  mix-blend-mode: normal;
+}
+
+.footer-brand:has(.tic-logo) {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.product-modal {
+  overflow: hidden;
+}
+
+.product-modal-copy {
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.product-variant-picker {
+  min-width: 0;
+  margin: 20px 0 0;
+  padding: 0;
+  border: 0;
+}
+
+.product-variant-picker legend {
+  margin-bottom: 10px;
+  color: #244e7e;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.product-variant-picker > div {
+  max-height: 230px;
+  padding: 3px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-color: rgba(24, 101, 201, 0.28) transparent;
+}
+
+.product-variant-picker label {
+  min-height: 66px;
+  padding: 11px 12px;
+  display: grid;
+  grid-template-columns: 17px minmax(0, 1fr);
+  align-content: center;
+  gap: 3px 8px;
+  border: 1px solid rgba(64, 133, 220, 0.18);
+  border-radius: 15px;
+  color: #244d7c;
+  background: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  transition: border-color 160ms ease, background 160ms ease, box-shadow 160ms ease;
+}
+
+.product-variant-picker label.is-selected {
+  border-color: #2879df;
+  background: linear-gradient(145deg, rgba(238, 247, 255, 0.98), rgba(215, 234, 255, 0.9));
+  box-shadow: 0 8px 22px rgba(24, 102, 200, 0.13), inset 0 0 0 1px rgba(255, 255, 255, 0.9);
+}
+
+.product-variant-picker input {
+  grid-row: 1 / 3;
+  align-self: center;
+  margin: 0;
+  accent-color: #1666df;
+}
+
+.product-variant-picker span {
+  min-width: 0;
+  font-size: 9px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.product-variant-picker strong {
+  color: #0a56bd;
+  font-size: 11px;
+}
+
+.cart-line-variant {
+  width: fit-content;
+  margin: 5px 0 3px !important;
+  padding: 5px 9px;
+  border: 1px solid rgba(48, 121, 212, 0.15);
+  border-radius: 999px;
+  color: #1459ad !important;
+  background: #edf6ff;
+  font-size: 9px !important;
+  font-weight: 750;
+}
+
+.suggestion-grid article > div a {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #0b59bf;
+  font-size: 9px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.suggestion-grid article > div a svg {
+  width: 13px;
+}
+
+@media (max-width: 900px) {
+  .tic-logo {
+    width: 104px;
+  }
+
+  .mobile-bottom-nav {
+    height: 74px;
+    padding: 7px 8px 6px;
+    border-color: rgba(133, 179, 232, 0.35);
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 12px 38px rgba(27, 80, 147, 0.2), inset 0 1px 0 #fff;
+  }
+
+  .mobile-bottom-nav .mobile-nav-home {
+    height: 58px;
+    align-self: end;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .mobile-nav-logo {
+    top: -28px;
+    width: 68px;
+    height: 68px;
+    padding: 10px;
+    border: 1px solid rgba(120, 166, 223, 0.38);
+    color: var(--navy);
+    background: #fff;
+    box-shadow: 0 10px 26px rgba(28, 82, 151, 0.2), 0 0 0 5px rgba(255, 255, 255, 0.68);
+  }
+
+  .tic-logo-mobile {
+    width: 48px;
+  }
+}
+
+@media (max-width: 760px) {
+  .product-modal-backdrop {
+    padding: 10px;
+    align-items: end;
+  }
+
+  .product-modal {
+    width: 100%;
+    max-height: calc(100dvh - 18px);
+    grid-template-rows: minmax(190px, 38dvh) minmax(0, 1fr);
+    border-radius: 25px 25px 20px 20px;
+  }
+
+  .product-modal-art {
+    height: 100%;
+    aspect-ratio: auto;
+  }
+
+  .product-modal-art img {
+    height: 100%;
+    aspect-ratio: auto;
+    object-fit: contain;
+  }
+
+  .product-modal-copy {
+    max-height: none;
+    padding: 24px 18px calc(20px + env(safe-area-inset-bottom));
+  }
+
+  .product-modal-copy h2 {
+    padding-right: 36px;
+    font-size: 27px;
+  }
+
+  .product-variant-picker > div {
+    max-height: 210px;
+    grid-template-columns: 1fr;
+  }
+
+  .product-variant-picker label {
+    min-height: 58px;
+  }
+}
+
+@media (max-width: 520px) {
+  .hero-image {
+    height: 350px;
+    background-position: 18% center;
+    background-size: cover;
+  }
+
+  .hero-copy {
+    margin-top: 330px;
+  }
+
+  .promotion-product-image {
+    aspect-ratio: 4 / 5;
+  }
+}
+
 .commerce-page {
   min-height: 100vh;
   background:
@@ -4223,5 +4444,117 @@ footer,
   .spin-bubble-3 {
     width: 112px;
     height: 112px;
+  }
+}
+
+/* Must stay last: production logo and mobile navigation overrides. */
+.tic-logo {
+  width: 116px;
+  aspect-ratio: 884 / 570;
+  overflow: visible;
+}
+
+.tic-logo img {
+  position: static;
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+  mix-blend-mode: normal;
+}
+
+.footer-brand:has(.tic-logo) {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.product-modal {
+  overflow: hidden;
+}
+
+.product-modal-copy {
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+@media (max-width: 900px) {
+  .tic-logo {
+    width: 104px;
+  }
+
+  .mobile-bottom-nav {
+    height: 74px;
+    padding: 7px 8px 6px;
+    border-color: rgba(133, 179, 232, 0.35);
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 12px 38px rgba(27, 80, 147, 0.2), inset 0 1px 0 #fff;
+  }
+
+  .mobile-bottom-nav .mobile-nav-home {
+    height: 58px;
+    align-self: end;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .mobile-nav-logo {
+    top: -28px;
+    width: 68px;
+    height: 68px;
+    padding: 10px;
+    border: 1px solid rgba(120, 166, 223, 0.38);
+    color: var(--navy);
+    background: #fff;
+    box-shadow: 0 10px 26px rgba(28, 82, 151, 0.2), 0 0 0 5px rgba(255, 255, 255, 0.68);
+  }
+
+  .tic-logo-mobile {
+    width: 48px;
+  }
+}
+
+@media (max-width: 760px) {
+  .product-modal-backdrop {
+    padding: 10px;
+    align-items: end;
+  }
+
+  .product-modal {
+    width: 100%;
+    max-height: calc(100dvh - 18px);
+    grid-template-rows: minmax(190px, 38dvh) minmax(0, 1fr);
+    border-radius: 25px 25px 20px 20px;
+  }
+
+  .product-modal-art {
+    height: 100%;
+    aspect-ratio: auto;
+  }
+
+  .product-modal-art img {
+    height: 100%;
+    aspect-ratio: auto;
+    object-fit: contain;
+  }
+
+  .product-modal-copy {
+    max-height: none;
+    padding: 24px 18px calc(20px + env(safe-area-inset-bottom));
+  }
+}
+
+@media (max-width: 520px) {
+  .hero-image {
+    height: 350px;
+    background-position: 18% center;
+    background-size: cover;
+  }
+
+  .hero-copy {
+    margin-top: 330px;
   }
 }

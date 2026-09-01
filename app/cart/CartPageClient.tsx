@@ -5,6 +5,7 @@ import { Check, Minus, Plus, ShoppingBag, Trash2 } from "lucide-react";
 import CommerceShell from "@/components/CommerceShell";
 import { useCart } from "@/components/CartProvider";
 import { catalog, formatBaht } from "@/lib/catalog";
+import { getCatalogVariants } from "@/lib/catalog-variants";
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 const siteHref = (path: string) => path === "/" ? `${basePath}/` : `${basePath}${path}`;
@@ -41,21 +42,22 @@ export default function CartPageClient() {
                   <h2>คอร์สที่เลือก</h2>
                   <span>{itemCount} รายการ</span>
                 </div>
-                {lines.map(({ item, quantity }) => (
-                  <article className="cart-line" key={item.id}>
+                {lines.map(({ item, variant, lineKey, unitPrice, quantity }) => (
+                  <article className="cart-line" key={lineKey}>
                     <div className="cart-line-mark"><img src={siteHref(item.image)} alt="" /></div>
                     <div className="cart-line-copy">
                       <span>{item.category}</span>
                       <h3>{item.title}</h3>
+                      {variant && <p className="cart-line-variant">{variant.label}</p>}
                       <p>{item.detail}</p>
-                      <button type="button" onClick={() => removeItem(item.id)}><Trash2 aria-hidden="true" /> นำออก</button>
+                      <button type="button" onClick={() => removeItem(lineKey)}><Trash2 aria-hidden="true" /> นำออก</button>
                     </div>
                     <div className="cart-line-controls">
-                      <strong>{formatBaht(item.price * quantity)} บาท</strong>
+                      <strong>{formatBaht(unitPrice * quantity)} บาท</strong>
                       <div className="quantity-control" aria-label={`จำนวน ${item.title}`}>
-                        <button type="button" onClick={() => setQuantity(item.id, quantity - 1)} aria-label="ลดจำนวน"><Minus /></button>
+                        <button type="button" onClick={() => setQuantity(lineKey, quantity - 1)} aria-label="ลดจำนวน"><Minus /></button>
                         <span>{quantity}</span>
-                        <button type="button" onClick={() => setQuantity(item.id, quantity + 1)} disabled={quantity >= 10} aria-label="เพิ่มจำนวน"><Plus /></button>
+                        <button type="button" onClick={() => setQuantity(lineKey, quantity + 1)} disabled={quantity >= 10} aria-label="เพิ่มจำนวน"><Plus /></button>
                       </div>
                     </div>
                   </article>
@@ -88,7 +90,12 @@ export default function CartPageClient() {
                     <span>{item.category}</span>
                     <h3>{item.title}</h3>
                     <p>{item.detail}</p>
-                    <div><strong>{formatBaht(item.price)} บาท</strong><button type="button" onClick={() => addItem(item.id)}><Plus /> เพิ่ม</button></div>
+                    <div>
+                      <strong>{formatBaht(item.price)} บาท</strong>
+                      {getCatalogVariants(item.id).length > 0
+                        ? <a href={siteHref("/services/")}><Plus /> เลือกตัวเลือก</a>
+                        : <button type="button" onClick={() => addItem(item.id)}><Plus /> เพิ่ม</button>}
+                    </div>
                   </article>
                 ))}
               </div>

@@ -4,6 +4,7 @@
 import { type CSSProperties, useEffect, useMemo, useState } from "react";
 import { ArrowLeft, ArrowRight, ShoppingBag, X } from "lucide-react";
 import { catalog, featuredCatalog, formatBaht, type CatalogItem } from "@/lib/catalog";
+import { getCatalogVariant, getCatalogVariants } from "@/lib/catalog-variants";
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 const siteHref = (path: string) => `${basePath}${path}`;
@@ -16,12 +17,27 @@ export default function PromotionShowcase({
   onAdd,
 }: {
   mode: "home" | "catalog";
-  onAdd: (id: string, title: string) => void;
+  onAdd: (id: string, title: string, variantId?: string) => void;
 }) {
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
   const [category, setCategory] = useState<(typeof categories)[number]>("ทั้งหมด");
   const [selected, setSelected] = useState<CatalogItem | null>(null);
+  const [selectedVariantId, setSelectedVariantId] = useState("");
+
+  const openProduct = (item: CatalogItem) => {
+    const firstVariant = getCatalogVariants(item.id)[0];
+    setSelectedVariantId(firstVariant?.id ?? "");
+    setSelected(item);
+  };
+
+  const addOrChoose = (item: CatalogItem) => {
+    if (getCatalogVariants(item.id).length > 0) {
+      openProduct(item);
+      return;
+    }
+    onAdd(item.id, item.title);
+  };
 
   useEffect(() => {
     if (paused) return;
@@ -39,13 +55,16 @@ export default function PromotionShowcase({
     return category === "ทั้งหมด" ? source : source.filter((item) => item.category === category);
   }, [category, mode]);
   const featured = featuredCatalog[active];
+  const selectedVariants = selected ? getCatalogVariants(selected.id) : [];
+  const selectedVariant = selected ? getCatalogVariant(selected.id, selectedVariantId) : undefined;
+  const selectedPrice = selectedVariant?.price ?? selected?.price ?? 0;
 
   return (
     <>
       {(mode === "home" || mode === "catalog") && (
         <section className="promo-showcase" aria-label="โปรโมชั่นเด่น">
           <div className="container promo-stage" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)} onFocusCapture={() => setPaused(true)} onBlurCapture={() => setPaused(false)}>
-            <button className="promo-art-button" style={promotionArtStyle(featured.image)} type="button" onClick={() => setSelected(featured)} aria-label={`ดูรายละเอียด ${featured.title}`}>
+            <button className="promo-art-button" style={promotionArtStyle(featured.image)} type="button" onClick={() => openProduct(featured)} aria-label={`ดูรายละเอียด ${featured.title}`}>
               <img src={siteHref(featured.image)} alt={`โปรโมชั่น ${featured.title}`} />
             </button>
             <div className="promo-stage-copy">
@@ -55,8 +74,8 @@ export default function PromotionShowcase({
               <p>{featured.detail}</p>
               <div className="promo-stage-price"><span>ราคาเริ่มต้น</span><strong>{formatBaht(featured.price)} <small>บาท</small></strong></div>
               <div className="promo-stage-actions">
-                <button type="button" onClick={() => onAdd(featured.id, featured.title)}><ShoppingBag /> ใส่ตะกร้า</button>
-                <button type="button" onClick={() => setSelected(featured)}>ดูรายละเอียด</button>
+                <button type="button" onClick={() => addOrChoose(featured)}><ShoppingBag /> {getCatalogVariants(featured.id).length ? "เลือกตัวเลือก" : "ใส่ตะกร้า"}</button>
+                <button type="button" onClick={() => openProduct(featured)}>ดูรายละเอียด</button>
               </div>
               <div className="promo-dots" aria-label="เลือกโปรโมชั่นเด่น">
                 {featuredCatalog.map((item, index) => <button className={index === active ? "is-active" : ""} key={item.id} type="button" onClick={() => setActive(index)} aria-label={`แสดง ${item.title}`} />)}
@@ -84,7 +103,7 @@ export default function PromotionShowcase({
           <div className={mode === "home" ? "promotion-product-grid is-home" : "promotion-product-grid"}>
             {visibleItems.map((item) => (
               <article className="promotion-product-card" key={item.id}>
-                <button className="promotion-product-image" style={promotionArtStyle(item.image)} type="button" onClick={() => setSelected(item)} aria-label={`ดูรายละเอียด ${item.title}`}>
+                <button className="promotion-product-image" style={promotionArtStyle(item.image)} type="button" onClick={() => openProduct(item)} aria-label={`ดูรายละเอียด ${item.title}`}>
                   <img loading="lazy" src={siteHref(item.image)} alt={`โปรโมชั่น ${item.title}`} />
                   <span>{item.tag}</span>
                 </button>
@@ -94,8 +113,8 @@ export default function PromotionShowcase({
                   <p>{item.detail}</p>
                   <div className="promotion-product-price"><span>เริ่มต้น</span><strong>{formatBaht(item.price)}.-</strong></div>
                   <div className="promotion-product-actions">
-                    <button type="button" onClick={() => setSelected(item)}>รายละเอียด</button>
-                    <button type="button" onClick={() => onAdd(item.id, item.title)}><ShoppingBag /> ใส่ตะกร้า</button>
+                    <button type="button" onClick={() => openProduct(item)}>รายละเอียด</button>
+                    <button type="button" onClick={() => addOrChoose(item)}><ShoppingBag /> {getCatalogVariants(item.id).length ? "เลือก" : "ใส่ตะกร้า"}</button>
                   </div>
                 </div>
               </article>
@@ -113,9 +132,29 @@ export default function PromotionShowcase({
               <span>{selected.category}</span>
               <h2 id="product-modal-title">{selected.title}</h2>
               <p>{selected.detail}</p>
-              <div className="product-modal-price"><small>ราคาเริ่มต้น</small><strong>{formatBaht(selected.price)} บาท</strong></div>
+              {selectedVariants.length > 0 && (
+                <fieldset className="product-variant-picker">
+                  <legend>เลือกโปรแกรมที่ต้องการ</legend>
+                  <div>
+                    {selectedVariants.map((variant) => (
+                      <label className={variant.id === selectedVariant?.id ? "is-selected" : ""} key={variant.id}>
+                        <input
+                          type="radio"
+                          name="product-variant"
+                          value={variant.id}
+                          checked={variant.id === selectedVariant?.id}
+                          onChange={() => setSelectedVariantId(variant.id)}
+                        />
+                        <span>{variant.label}</span>
+                        <strong>{formatBaht(variant.price)} บาท</strong>
+                      </label>
+                    ))}
+                  </div>
+                </fieldset>
+              )}
+              <div className="product-modal-price"><small>{selectedVariant ? "ราคาตัวเลือกนี้" : "ราคาโปรโมชั่น"}</small><strong>{formatBaht(selectedPrice)} บาท</strong></div>
               <p className="product-modal-note">ราคาและรายละเอียดเป็นไปตามเงื่อนไขในภาพโปรโมชั่น กรุณาให้ทีมคลินิกประเมินและยืนยันก่อนรับบริการ</p>
-              <button className="checkout-button" type="button" onClick={() => { onAdd(selected.id, selected.title); setSelected(null); }}><ShoppingBag /> เพิ่มลงตะกร้า</button>
+              <button className="checkout-button" type="button" onClick={() => { onAdd(selected.id, selected.title, selectedVariant?.id); setSelected(null); }}><ShoppingBag /> เพิ่มลงตะกร้า</button>
             </div>
           </section>
         </div>

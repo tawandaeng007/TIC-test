@@ -23,3 +23,16 @@ test("promotion artwork uses a complete mobile 4:5 presentation", async () => {
   assert.match(styles, /\.promotion-product-image img,[\s\S]*?object-fit:\s*contain/);
   assert.match(showcase, /--promotion-art/);
 });
+
+test("multi-price promotions require a selected option and keep its price in the cart", async () => {
+  const variants = await readFile(new URL("../lib/catalog-variants.ts", import.meta.url), "utf8");
+  const showcase = await readFile(new URL("../components/PromotionShowcase.tsx", import.meta.url), "utf8");
+  const cart = await readFile(new URL("../components/CartProvider.tsx", import.meta.url), "utf8");
+
+  assert.match(variants, /"premium-skin":[\s\S]*?"1-bottle", "1 กระปุก", 1290[\s\S]*?"6-bottles", "6 กระปุก", 4990[\s\S]*?"12-bottles", "12 กระปุก", 8990/);
+  assert.match(variants, /"botox-program":[\s\S]*?"allergen-100u", "ALLERGEN \(อเมริกา\) · 100 U", 17999/);
+  assert.match(showcase, /product-variant-picker/);
+  assert.match(showcase, /onAdd\(selected\.id, selected\.title, selectedVariant\?\.id\)/);
+  assert.match(cart, /lineKey: cartLineKey\(line\.id, variant\?\.id\)/);
+  assert.match(cart, /unitPrice: variant\?\.price \?\? item\.price/);
+});
