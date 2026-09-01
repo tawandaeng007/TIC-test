@@ -4,14 +4,26 @@
 import { type CSSProperties, useEffect, useState } from "react";
 import {
   CalendarHeart,
+  CalendarDays,
+  CarFront,
   CheckCircle2,
+  CircleDollarSign,
+  Clock3,
   Cpu,
+  CreditCard,
+  ExternalLink,
   HeartHandshake,
+  MapPin,
   MessageSquareText,
+  Music2,
   Phone,
+  PlayCircle,
   ShieldCheck,
   ShoppingBag,
+  Sparkles,
+  Star,
   Stethoscope,
+  UsersRound,
 } from "lucide-react";
 import { useCart } from "@/components/CartProvider";
 import PromotionShowcase from "@/components/PromotionShowcase";
@@ -49,13 +61,49 @@ const trustItems = [
   },
 ];
 
+const doctorSchedule = [
+  { days: "จันทร์ – ศุกร์", time: "10:00 – 20:00 น.", service: "ตรวจประเมินและรับบริการตามคิวที่ยืนยัน", status: "นัดหมายล่วงหน้า" },
+  { days: "เสาร์", time: "10:00 – 20:00 น.", service: "ตรวจประเมินและรับบริการตามคิวที่ยืนยัน", status: "คิวมีจำนวนจำกัด" },
+  { days: "อาทิตย์", time: "10:00 – 20:00 น.", service: "ตรวจประเมินและรับบริการตามคิวที่ยืนยัน", status: "คิวมีจำนวนจำกัด" },
+];
+
+const treatmentSteps = [
+  { icon: MessageSquareText, number: "01", title: "พูดคุยความต้องการ", detail: "แจ้งปัญหาที่กังวล ประวัติสุขภาพ ยาที่ใช้ และผลลัพธ์ที่คาดหวัง" },
+  { icon: Stethoscope, number: "02", title: "แพทย์ตรวจประเมิน", detail: "ประเมินความเหมาะสม พร้อมอธิบายทางเลือก ข้อจำกัด และการดูแลที่เกี่ยวข้อง" },
+  { icon: Sparkles, number: "03", title: "ออกแบบแผนเฉพาะบุคคล", detail: "เลือกโปรแกรมและจำนวนครั้งที่เหมาะสม โดยยืนยันรายละเอียดและราคาก่อนรับบริการ" },
+  { icon: HeartHandshake, number: "04", title: "รับบริการและติดตามผล", detail: "รับคำแนะนำหลังบริการ พร้อมช่องทางติดต่อทีมคลินิกเมื่อต้องการคำปรึกษา" },
+];
+
+const testimonials = [
+  { quote: "ทีมดูแลอธิบายละเอียด ทำให้ตัดสินใจได้อย่างมั่นใจและไม่รู้สึกเร่งรีบ", name: "ผู้ใช้บริการโปรแกรมปรับรูปหน้า", rating: 5 },
+  { quote: "ชอบที่ได้ประเมินก่อนทุกครั้ง และได้รับคำแนะนำการดูแลหลังบริการอย่างชัดเจน", name: "ผู้ใช้บริการโปรแกรมดูแลผิว", rating: 5 },
+  { quote: "นัดหมายสะดวก ทีมงานติดตามผลและตอบคำถามหลังรับบริการดีมาก", name: "ผู้ใช้บริการโปรแกรมยกกระชับ", rating: 5 },
+];
+
+const faqs = [
+  { question: "ควรเตรียมตัวอย่างไรก่อนรับบริการ?", answer: "แจ้งโรคประจำตัว ประวัติแพ้ยา ยาและอาหารเสริมที่ใช้อยู่ รวมถึงการตั้งครรภ์หรือให้นมบุตรแก่ทีมแพทย์ ไม่ควรหยุดยาที่แพทย์สั่งด้วยตนเอง และควรทำตามคำแนะนำเฉพาะโปรแกรมที่คลินิกแจ้งก่อนวันนัด" },
+  { question: "หลังรับบริการต้องดูแลตัวเองอย่างไร?", answer: "วิธีดูแลแตกต่างกันในแต่ละโปรแกรม ทีมคลินิกจะสรุปข้อควรทำและข้อควรหลีกเลี่ยงให้หลังบริการ หากมีอาการผิดปกติหรือไม่แน่ใจ ควรติดต่อคลินิกทันที" },
+  { question: "มีที่จอดรถหรือไม่?", answer: "มีจุดจอดรถในบริเวณใกล้คลินิก กรุณาติดต่อทีมงานก่อนเดินทางเพื่อรับตำแหน่งทางเข้าและจุดจอดรถที่สะดวกในวันนัด" },
+  { question: "ชำระเงินด้วยช่องทางใดได้บ้าง?", answer: "สามารถเลือกช่องทางชำระที่คลินิกยืนยันในวันรับบริการ เช่น เงินสด โอนเงิน หรือบัตรตามเงื่อนไขของคลินิก ระบบชำระออนไลน์บนเว็บไซต์ยังไม่เปิดรับเงินจริง" },
+  { question: "สามารถผ่อนชำระได้หรือไม่?", answer: "การผ่อนชำระขึ้นอยู่กับยอดบริการ บัตร และผู้ให้บริการทางการเงิน กรุณาสอบถามทีมคลินิกก่อนชำระเพื่อรับเงื่อนไขล่าสุด" },
+  { question: "หากต้องการเลื่อนหรือยกเลิกนัดต้องทำอย่างไร?", answer: "ติดต่อทีมคลินิกผ่านโทรศัพท์หรือ LINE Official ล่วงหน้า พร้อมแจ้งชื่อและเวลานัดเดิม ทีมงานจะช่วยตรวจสอบคิวที่สะดวกให้ใหม่" },
+];
+
+const socialLinks = [
+  { label: "LINE Official", detail: "แชตและนัดหมาย", href: "https://line.me/", icon: MessageSquareText },
+  { label: "Facebook", detail: "ข่าวสารและรีวิว", href: "https://www.facebook.com/", icon: UsersRound },
+  { label: "TikTok", detail: "วิดีโอและเคสรีวิว", href: "https://www.tiktok.com/search?q=TIC%20Clinic", icon: Music2 },
+];
+
 export type ClinicPage =
   | "home"
   | "about"
+  | "schedule"
   | "services"
   | "promotion"
   | "reviews"
   | "results"
+  | "faq"
   | "contact";
 
 const pageDetails: Record<
@@ -67,6 +115,12 @@ const pageDetails: Record<
     title: "ความงามที่ดี เริ่มจากความเข้าใจ",
     description:
       "เราดูแลทุกคนด้วยมาตรฐานเดียวกัน ตั้งแต่การวิเคราะห์ ออกแบบแผนการดูแล ไปจนถึงการติดตามผลอย่างใกล้ชิด",
+  },
+  schedule: {
+    kicker: "DOCTOR SCHEDULE",
+    title: "ตารางการเข้าตรวจและรับนัดหมาย",
+    description:
+      "ตรวจสอบช่วงเวลารับนัดหมายก่อนเดินทาง และยืนยันคิวกับทีมคลินิกเพื่อให้เราเตรียมการดูแลได้อย่างเหมาะสม",
   },
   services: {
     kicker: "OUR SERVICES",
@@ -91,6 +145,12 @@ const pageDetails: Record<
     title: "ผลงานจากเคสที่ได้รับอนุญาต",
     description:
       "ชมภาพผลงานที่คลินิกจัดทำเพื่อประกอบการตัดสินใจ ผลลัพธ์ของแต่ละบุคคลอาจแตกต่างกัน",
+  },
+  faq: {
+    kicker: "FREQUENTLY ASKED QUESTIONS",
+    title: "ข้อมูลสำคัญก่อนเข้ารับบริการ",
+    description:
+      "รวมคำตอบเรื่องการเตรียมตัว การดูแลหลังบริการ ที่จอดรถ การชำระเงิน และการผ่อนชำระ",
   },
   contact: {
     kicker: "CONTACT & APPOINTMENT",
@@ -167,19 +227,19 @@ export default function ClinicSite({ page = "home" }: { page?: ClinicPage }) {
               หน้าแรก
             </a>
             <a className={page === "about" ? "active" : ""} href={siteHref("/about/")} onClick={() => setMenuOpen(false)}>
-              เกี่ยวกับเรา
+              เกี่ยวกับ
+            </a>
+            <a className={page === "schedule" ? "active" : ""} href={siteHref("/schedule/")} onClick={() => setMenuOpen(false)}>
+              ตารางแพทย์
             </a>
             <a className={page === "services" ? "active" : ""} href={siteHref("/services/")} onClick={() => setMenuOpen(false)}>
-              บริการ
-            </a>
-            <a className={page === "promotion" ? "active" : ""} href={siteHref("/promotion/")} onClick={() => setMenuOpen(false)}>
-              โปรโมชั่น
+              บริการ/ราคา
             </a>
             <a className={page === "reviews" ? "active" : ""} href={siteHref("/reviews/")} onClick={() => setMenuOpen(false)}>
               รีวิว
             </a>
-            <a className={page === "results" ? "active" : ""} href={siteHref("/results/")} onClick={() => setMenuOpen(false)}>
-              ผลงาน
+            <a className={page === "faq" ? "active" : ""} href={siteHref("/faq/")} onClick={() => setMenuOpen(false)}>
+              FAQ
             </a>
             <a className={page === "contact" ? "active" : ""} href={siteHref("/contact/")} onClick={() => setMenuOpen(false)}>
               ติดต่อเรา
@@ -245,6 +305,27 @@ export default function ClinicSite({ page = "home" }: { page?: ClinicPage }) {
         <PromotionShowcase mode={page === "home" ? "home" : "catalog"} onAdd={addProgram} />
       )}
 
+      {page === "home" && (
+        <section className="clinic-overview section-shell">
+          <div className="container clinic-overview-grid">
+            <div className="clinic-overview-copy">
+              <span className="section-kicker">WELCOME TO TIC CLINIC</span>
+              <h2>ดูแลทุกขั้นตอนด้วยความเข้าใจ</h2>
+              <p>
+                เราเริ่มจากการรับฟัง ตรวจประเมิน และอธิบายทุกทางเลือกอย่างตรงไปตรงมา
+                เพื่อให้คุณเลือกการดูแลที่เหมาะกับตัวเองได้อย่างมั่นใจ
+              </p>
+              <a className="button button-primary" href={siteHref("/about/")}>รู้จัก TIC Clinic <span>→</span></a>
+            </div>
+            <div className="clinic-quick-links">
+              <a href={siteHref("/schedule/")}><CalendarDays /><span><strong>ตารางแพทย์</strong><small>ดูช่วงเวลารับนัดหมาย</small></span></a>
+              <a href={siteHref("/services/")}><Sparkles /><span><strong>บริการและราคา</strong><small>เลือกหมวดหมู่และแพ็กเกจ</small></span></a>
+              <a href={siteHref("/faq/")}><MessageSquareText /><span><strong>คำถามที่พบบ่อย</strong><small>เตรียมตัวและการชำระเงิน</small></span></a>
+            </div>
+          </div>
+        </section>
+      )}
+
       {page === "about" && (
         <section className="about-story">
           <div className="container about-story-grid">
@@ -263,6 +344,53 @@ export default function ClinicSite({ page = "home" }: { page?: ClinicPage }) {
               <button className="button button-primary" type="button" onClick={openBooking}>
                 นัดหมายปรึกษาทีมแพทย์ <span>→</span>
               </button>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {page === "schedule" && (
+        <section className="schedule-section section-shell">
+          <div className="container schedule-layout">
+            <div className="schedule-panel">
+              <div className="section-heading split-heading">
+                <div><span className="section-kicker">APPOINTMENT HOURS</span><h2>ตารางรับนัดหมาย</h2></div>
+                <p>ตารางอาจมีการเปลี่ยนแปลง โปรดยืนยันรายชื่อแพทย์และเวลากับทีมคลินิกก่อนเดินทางทุกครั้ง</p>
+              </div>
+              <div className="schedule-table-wrap">
+                <table className="schedule-table">
+                  <thead><tr><th>วัน</th><th>เวลา</th><th>รูปแบบการเข้าตรวจ</th><th>สถานะ</th></tr></thead>
+                  <tbody>
+                    {doctorSchedule.map((row) => (
+                      <tr key={row.days}><td>{row.days}</td><td>{row.time}</td><td>{row.service}</td><td><span>{row.status}</span></td></tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <aside className="schedule-booking-card">
+              <CalendarHeart aria-hidden="true" />
+              <span className="section-kicker">BOOK YOUR VISIT</span>
+              <h2>นัดหมายก่อนเดินทาง</h2>
+              <p>เลือกวันและช่วงเวลาที่สะดวก ทีมงานจะติดต่อกลับเพื่อยืนยันแพทย์และคิวบริการ</p>
+              <button className="button button-primary" type="button" onClick={openBooking}>นัดหมายทันที <span>→</span></button>
+              <small><Clock3 /> เปิดบริการทุกวัน 10:00 – 20:00 น.</small>
+            </aside>
+          </div>
+        </section>
+      )}
+
+      {page === "services" && (
+        <section className="treatment-journey section-shell">
+          <div className="container">
+            <div className="section-heading split-heading">
+              <div><span className="section-kicker">TREATMENT JOURNEY</span><h2>ขั้นตอนการรับบริการ</h2></div>
+              <p>ทุกโปรแกรมเริ่มจากการประเมินความเหมาะสม และยืนยันรายละเอียดก่อนรับบริการจริง</p>
+            </div>
+            <div className="treatment-step-grid">
+              {treatmentSteps.map((step) => (
+                <article key={step.number}><span>{step.number}</span><step.icon aria-hidden="true" /><h3>{step.title}</h3><p>{step.detail}</p></article>
+              ))}
             </div>
           </div>
         </section>
@@ -308,8 +436,62 @@ export default function ClinicSite({ page = "home" }: { page?: ClinicPage }) {
               </article>
             ))}
           </div>
+          {page === "reviews" && (
+            <>
+              <div className="testimonial-grid">
+                {testimonials.map((review) => (
+                  <article key={review.name}>
+                    <div className="testimonial-stars" aria-label={`${review.rating} ดาว`}>
+                      {Array.from({ length: review.rating }, (_, index) => <Star key={index} aria-hidden="true" />)}
+                    </div>
+                    <blockquote>“{review.quote}”</blockquote>
+                    <strong>{review.name}</strong>
+                  </article>
+                ))}
+              </div>
+              <div className="video-review-heading">
+                <div><span className="section-kicker">VIDEO STORIES</span><h2>วิดีโอสัมภาษณ์ความประทับใจ</h2></div>
+                <p>ติดตามวิดีโอรีวิวและประสบการณ์เพิ่มเติมผ่านช่องทางโซเชียลของคลินิก</p>
+              </div>
+              <div className="video-story-grid">
+                {reviewCases.slice(0, 3).map((review, index) => (
+                  <a className="video-story-card" href={index === 0 ? "https://www.tiktok.com/search?q=TIC%20Clinic" : "https://www.facebook.com/"} target="_blank" rel="noreferrer" key={review.title}>
+                    <img src={siteHref(review.image)} alt="" />
+                    <span><PlayCircle aria-hidden="true" /></span>
+                    <div><small>VIDEO INTERVIEW</small><strong>{review.title}</strong><em>เปิดชมบนช่องทางของคลินิก <ExternalLink /></em></div>
+                  </a>
+                ))}
+              </div>
+            </>
+          )}
         </div>
       </section>
+      )}
+
+      {page === "faq" && (
+        <section className="faq-section section-shell">
+          <div className="container faq-layout">
+            <aside className="faq-aside">
+              <span className="section-kicker">BEFORE YOUR VISIT</span>
+              <h2>เตรียมตัวให้พร้อมก่อนเข้าคลินิก</h2>
+              <p>หากคำถามของคุณไม่อยู่ในรายการ สามารถส่งข้อความถึงทีมดูแลได้โดยตรง</p>
+              <div>
+                <span><CarFront /> ที่จอดรถ</span>
+                <span><CircleDollarSign /> การชำระเงิน</span>
+                <span><CreditCard /> การผ่อนชำระ</span>
+              </div>
+              <button className="button button-primary" type="button" onClick={openBooking}>สอบถามทีมคลินิก <span>→</span></button>
+            </aside>
+            <div className="faq-list">
+              {faqs.map((item, index) => (
+                <details key={item.question} open={index === 0}>
+                  <summary>{item.question}<span>＋</span></summary>
+                  <p>{item.answer}</p>
+                </details>
+              ))}
+            </div>
+          </div>
+        </section>
       )}
 
       {(page === "home" || page === "promotion") && (
@@ -317,11 +499,11 @@ export default function ClinicSite({ page = "home" }: { page?: ClinicPage }) {
         <div className="container promotion-card">
           <div>
             <span className="section-kicker light">WELCOME PRIVILEGE</span>
-            <h2>สิทธิพิเศษสำหรับลูกค้าใหม่</h2>
-            <p>รับคำปรึกษาและวิเคราะห์ใบหน้าโดยแพทย์ ไม่มีค่าใช้จ่าย</p>
+            <h2>พร้อมเริ่มดูแลตัวเองหรือยัง?</h2>
+            <p>เลือกวันเวลาที่สะดวก แล้วให้ทีมคลินิกช่วยตรวจสอบคิวและแนะนำโปรแกรมที่เหมาะกับคุณ</p>
           </div>
           <button className="button button-gold" type="button" onClick={openBooking}>
-            รับสิทธิ์ปรึกษาฟรี <span>→</span>
+            นัดหมายทันที <span>→</span>
           </button>
         </div>
       </section>
@@ -347,12 +529,22 @@ export default function ClinicSite({ page = "home" }: { page?: ClinicPage }) {
                 จองคิวปรึกษาฟรี <span>→</span>
               </button>
             </div>
-            <div className="contact-visual" aria-hidden="true">
-              <div>
-                <span>TIC CLINIC</span>
-                <strong>SARABURI, THAILAND</strong>
-                <small>Medical care, made personal.</small>
-              </div>
+            <div className="contact-map">
+              <iframe
+                title="แผนที่ TIC Clinic จังหวัดสระบุรี"
+                src="https://www.google.com/maps?q=%E0%B8%88%E0%B8%B1%E0%B8%87%E0%B8%AB%E0%B8%A7%E0%B8%B1%E0%B8%94%E0%B8%AA%E0%B8%A3%E0%B8%B0%E0%B8%9A%E0%B8%B8%E0%B8%A3%E0%B8%B5&output=embed"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+              <a href="https://www.google.com/maps/search/?api=1&query=%E0%B8%88%E0%B8%B1%E0%B8%87%E0%B8%AB%E0%B8%A7%E0%B8%B1%E0%B8%94%E0%B8%AA%E0%B8%A3%E0%B8%B0%E0%B8%9A%E0%B8%B8%E0%B8%A3%E0%B8%B5" target="_blank" rel="noreferrer"><MapPin /> เปิดใน Google Maps <ExternalLink /></a>
+            </div>
+          </div>
+          <div className="contact-social-section" id="contact-channels">
+            <div><span className="section-kicker">FOLLOW & CHAT</span><h2>ติดตามและพูดคุยกับเรา</h2></div>
+            <div className="social-link-grid">
+              {socialLinks.map((social) => (
+                <a href={social.href} target="_blank" rel="noreferrer" key={social.label}><social.icon /><span><strong>{social.label}</strong><small>{social.detail}</small></span><ExternalLink /></a>
+              ))}
             </div>
           </div>
         </section>
@@ -374,6 +566,12 @@ export default function ClinicSite({ page = "home" }: { page?: ClinicPage }) {
             <a href={siteHref("/services/")}>ปรับรูปหน้า</a>
             <a href={siteHref("/services/")}>ยกกระชับ</a>
             <a href={siteHref("/services/")}>ดูแลผิวพรรณ</a>
+          </div>
+          <div>
+            <h3>ข้อมูลคลินิก</h3>
+            <a href={siteHref("/schedule/")}>ตารางแพทย์</a>
+            <a href={siteHref("/faq/")}>คำถามที่พบบ่อย</a>
+            <a href={siteHref("/reviews/")}>รีวิวและผลงาน</a>
           </div>
           <div>
             <h3>ติดต่อเรา</h3>

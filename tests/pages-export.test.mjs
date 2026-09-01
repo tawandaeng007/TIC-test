@@ -42,3 +42,13 @@ test("commerce pages are exported for GitHub Pages", async () => {
     assert.doesNotMatch(html, /name="(?:card|cardNumber|cvv|cvc|expiry)"/i);
   }
 });
+
+test("clinic information pages are exported for GitHub Pages", async () => {
+  for (const [file, text] of [
+    ["schedule/index.html", "ตารางรับนัดหมาย"],
+    ["faq/index.html", "เตรียมตัวให้พร้อมก่อนเข้าคลินิก"],
+  ]) {
+    const html = await readFile(new URL(file, docs), "utf8");
+    assert.match(html, new RegExp(text));
+  }
+});

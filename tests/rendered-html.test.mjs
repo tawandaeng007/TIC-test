@@ -4,10 +4,12 @@ import test from "node:test";
 const routes = [
   ["/", "TIC Clinic"],
   ["/about", "ความงามที่ดี เริ่มจากความเข้าใจ"],
+  ["/schedule", "ตารางการเข้าตรวจและรับนัดหมาย"],
   ["/services", "บริการที่ออกแบบเพื่อคุณ"],
   ["/promotion", "สิทธิพิเศษจาก TIC Clinic"],
   ["/reviews", "เสียงจากผู้ใช้บริการจริง"],
   ["/results", "ผลงานจากเคสที่ได้รับอนุญาต"],
+  ["/faq", "ข้อมูลสำคัญก่อนเข้ารับบริการ"],
   ["/contact", "เริ่มต้นปรึกษาเราได้วันนี้"],
   ["/cart", "ตะกร้าของคุณ"],
   ["/checkout", "ข้อมูลสำหรับรับบริการ"],
@@ -72,6 +74,23 @@ test("main site uses supplied promotion artwork and removes fabricated result cl
   assert.match(promotionHtml, /--promotion-art:url/);
   assert.match(visible, /Filler AMD 3 แถม 1/);
   assert.doesNotMatch(visible, /15K|98%|2,500 รีวิว|ก่อนดูแล|หลังดูแล|หมองคล้ำ/);
+});
+
+test("clinic information architecture covers booking, care, reviews, FAQ, and contact", async () => {
+  const homeHtml = await (await render("/")).text();
+  const scheduleHtml = await (await render("/schedule")).text();
+  const servicesHtml = await (await render("/services")).text();
+  const reviewsHtml = await (await render("/reviews")).text();
+  const faqHtml = await (await render("/faq")).text();
+  const contactHtml = await (await render("/contact")).text();
+
+  assert.match(homeHtml, /ดูแลทุกขั้นตอนด้วยความเข้าใจ/);
+  assert.match(scheduleHtml, /ตารางรับนัดหมาย/);
+  assert.match(servicesHtml, /ขั้นตอนการรับบริการ/);
+  assert.match(reviewsHtml, /วิดีโอสัมภาษณ์ความประทับใจ/);
+  assert.match(faqHtml, /การเตรียมตัว|ควรเตรียมตัว/);
+  assert.match(contactHtml, /Google Maps/);
+  assert.match(contactHtml, /LINE Official/);
 });
 
 test("Lucky Spin shows confirmed values, never probability copy or prize images", async () => {
