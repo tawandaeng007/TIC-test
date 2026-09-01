@@ -1,32 +1,17 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { type CSSProperties, useEffect, useRef, useState } from "react";
+import { type CSSProperties, useEffect, useState } from "react";
 import { CalendarHeart, MessageSquareText, Phone, ShoppingBag } from "lucide-react";
 import { useCart } from "@/components/CartProvider";
-import { catalog as programs, formatBaht } from "@/lib/catalog";
+import PromotionShowcase from "@/components/PromotionShowcase";
+import { catalog as programs } from "@/lib/catalog";
 
-const reviews = [
-  {
-    quote:
-      "คุณหมอให้คำแนะนำดีมาก ทำแล้วผลลัพธ์ธรรมชาติ ประทับใจตั้งแต่ครั้งแรกเลยค่ะ",
-    name: "คุณมินตรา",
-    service: "ฟิลเลอร์ปรับรูปหน้า",
-    initials: "MN",
-  },
-  {
-    quote:
-      "บริการประทับใจ พนักงานดูแลดีมากค่ะ คลินิกสะอาดและเป็นส่วนตัว",
-    name: "คุณพิมพ์ชนก",
-    service: "Skin Booster",
-    initials: "PP",
-  },
-  {
-    quote:
-      "ทำแล้วหน้าใสขึ้นจริง เพื่อนทักเยอะเลยค่ะ คุณหมอมือเบามาก แนะนำเลยค่ะ",
-    name: "คุณอรอนงค์",
-    service: "เลเซอร์หน้าใส",
-    initials: "AO",
-  },
+const reviewCases = [
+  { image: "/images/reviews/review-1.jpg", title: "ฟิลเลอร์คาง", detail: "ภาพเคสที่คลินิกจัดทำและนำเสนอ" },
+  { image: "/images/reviews/review-2.jpg", title: "ฟิลเลอร์ปาก", detail: "ภาพเคสที่คลินิกจัดทำและนำเสนอ" },
+  { image: "/images/reviews/review-3.jpg", title: "ร้อยไหมยกกระชับ", detail: "ภาพเคสที่คลินิกจัดทำและนำเสนอ" },
+  { image: "/images/reviews/review-4.jpg", title: "ฟิลเลอร์ใต้ตา", detail: "ภาพเคสที่คลินิกจัดทำและนำเสนอ" },
 ];
 
 const trustItems = [
@@ -90,10 +75,10 @@ const pageDetails: Record<
       "ประสบการณ์และความรู้สึกจากผู้ที่ไว้วางใจให้ TIC Clinic ดูแลในทุกช่วงของความมั่นใจ",
   },
   results: {
-    kicker: "NATURAL RESULTS",
-    title: "ผลลัพธ์ที่ยังคงเป็นคุณ",
+    kicker: "SELECTED CASES",
+    title: "ผลงานจากเคสที่ได้รับอนุญาต",
     description:
-      "เรามุ่งเน้นผลลัพธ์ที่ดูเป็นธรรมชาติ เหมาะกับโครงหน้าและความต้องการเฉพาะบุคคล",
+      "ชมภาพผลงานที่คลินิกจัดทำเพื่อประกอบการตัดสินใจ ผลลัพธ์ของแต่ละบุคคลอาจแตกต่างกัน",
   },
   contact: {
     kicker: "CONTACT & APPOINTMENT",
@@ -111,10 +96,8 @@ export default function ClinicSite({ page = "home" }: { page?: ClinicPage }) {
   const { addItem, itemCount } = useCart();
   const [menuOpen, setMenuOpen] = useState(false);
   const [bookingOpen, setBookingOpen] = useState(false);
-  const [beforeAfter, setBeforeAfter] = useState(52);
   const [sent, setSent] = useState(false);
   const [addedItem, setAddedItem] = useState<string | null>(null);
-  const programRail = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     document.body.style.overflow = bookingOpen ? "hidden" : "";
@@ -128,13 +111,6 @@ export default function ClinicSite({ page = "home" }: { page?: ClinicPage }) {
     const timer = window.setTimeout(() => setAddedItem(null), 2200);
     return () => window.clearTimeout(timer);
   }, [addedItem]);
-
-  const scrollPrograms = (direction: number) => {
-    programRail.current?.scrollBy({
-      left: direction * 360,
-      behavior: "smooth",
-    });
-  };
 
   const openBooking = () => {
     setSent(false);
@@ -202,7 +178,7 @@ export default function ClinicSite({ page = "home" }: { page?: ClinicPage }) {
               รีวิว
             </a>
             <a className={page === "results" ? "active" : ""} href={siteHref("/results/")} onClick={() => setMenuOpen(false)}>
-              ผลลัพธ์
+              ผลงาน
             </a>
             <a className={page === "contact" ? "active" : ""} href={siteHref("/contact/")} onClick={() => setMenuOpen(false)}>
               ติดต่อเรา
@@ -246,17 +222,6 @@ export default function ClinicSite({ page = "home" }: { page?: ClinicPage }) {
                 สอบถามเพิ่มเติม
               </a>
             </div>
-            <div className="hero-proof">
-              <div className="avatars" aria-hidden="true">
-                <span>MN</span>
-                <span>PP</span>
-                <span>AO</span>
-              </div>
-              <div>
-                <span className="stars">★★★★★</span>
-                <small>ความพึงพอใจจากผู้ใช้บริการกว่า 2,500 รีวิว</small>
-              </div>
-            </div>
           </div>
         </div>
       </section>
@@ -276,50 +241,7 @@ export default function ClinicSite({ page = "home" }: { page?: ClinicPage }) {
       )}
 
       {(page === "home" || page === "services" || page === "promotion") && (
-      <section className="programs section-shell" id="services">
-        <div className="container">
-          <div className="section-heading">
-            <div>
-              <span className="section-kicker">OUR SIGNATURE PROGRAMS</span>
-              <h2>โปรแกรมแนะนำ</h2>
-            </div>
-            <div className="rail-actions">
-              <button type="button" onClick={() => scrollPrograms(-1)} aria-label="เลื่อนไปทางซ้าย">
-                ←
-              </button>
-              <button type="button" onClick={() => scrollPrograms(1)} aria-label="เลื่อนไปทางขวา">
-                →
-              </button>
-            </div>
-          </div>
-
-          <div className="program-rail" ref={programRail}>
-            {programs.map((program) => (
-              <article className="program-card" key={program.title}>
-                <div
-                  className="program-photo"
-                  style={{ backgroundPosition: `${program.position} center` }}
-                >
-                  <span>{program.tag}</span>
-                </div>
-                <div className="program-content">
-                  <h3>{program.title}</h3>
-                  <p>{program.detail}</p>
-                  <div className="price-row">
-                    <div>
-                      <small>เริ่มต้น</small>
-                      <strong>{formatBaht(program.price)}.-</strong>
-                    </div>
-                    <button className="add-cart-button" type="button" onClick={() => addProgram(program.id, program.title)} aria-label={`เพิ่ม ${program.title} ลงตะกร้า`}>
-                      <ShoppingBag aria-hidden="true" />
-                    </button>
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
+        <PromotionShowcase mode={page === "home" ? "home" : "catalog"} onAdd={addProgram} />
       )}
 
       {page === "about" && (
@@ -361,95 +283,27 @@ export default function ClinicSite({ page = "home" }: { page?: ClinicPage }) {
       </section>
       )}
 
-      {(page === "home" || page === "reviews") && (
+      {(page === "home" || page === "reviews" || page === "results") && (
       <section className="reviews-section section-shell" id="reviews">
         <div className="container">
           <div className="section-heading split-heading">
             <div>
-              <span className="section-kicker">REAL EXPERIENCES</span>
-              <h2>เสียงจากผู้ใช้บริการจริง</h2>
+              <span className="section-kicker">SELECTED CASES</span>
+              <h2>ภาพผลงานจากคลินิก</h2>
             </div>
             <p>
-              เพราะทุกความมั่นใจมีความหมาย เราจึงใส่ใจในทุกขั้นตอน
-              และให้ผลลัพธ์ที่เป็นธรรมชาติที่สุดสำหรับคุณ
+              ภาพประกอบจากเคสที่คลินิกจัดทำ ผลลัพธ์ของแต่ละบุคคลอาจแตกต่างกัน
+              ควรรับการประเมินจากแพทย์ก่อนเลือกโปรแกรม
             </p>
           </div>
 
-          <div className="review-grid">
-            {reviews.map((review) => (
-              <article className="review-card" key={review.name}>
-                <div className="review-top">
-                  <span className="stars">★★★★★</span>
-                  <span className="quote-mark">“</span>
-                </div>
-                <blockquote>{review.quote}</blockquote>
-                <div className="review-person">
-                  <div className="review-avatar">{review.initials}</div>
-                  <div>
-                    <strong>{review.name}</strong>
-                    <small>{review.service}</small>
-                  </div>
-                  <span className="verified">✓ รีวิวที่ยืนยันแล้ว</span>
-                </div>
+          <div className="case-gallery">
+            {reviewCases.map((review) => (
+              <article className="case-card" key={review.title}>
+                <img loading="lazy" src={siteHref(review.image)} alt={review.title} />
+                <div><strong>{review.title}</strong><span>{review.detail}</span></div>
               </article>
             ))}
-          </div>
-        </div>
-      </section>
-      )}
-
-      {(page === "home" || page === "results") && (
-      <section className="results-section" id="results">
-        <div className="container results-grid">
-          <div className="results-copy">
-            <span className="section-kicker">NATURAL RESULTS</span>
-            <h2>
-              ผลลัพธ์ที่คุณ
-              <br />
-              สัมผัสได้
-            </h2>
-            <p>
-              เราออกแบบการดูแลเฉพาะบุคคล เพื่อให้ผลลัพธ์ดูสวยอย่างเป็นธรรมชาติ
-              และยังคงความเป็นตัวคุณ
-            </p>
-            <div className="result-stats">
-              <div>
-                <strong>12+</strong>
-                <span>ปีแห่งประสบการณ์</span>
-              </div>
-              <div>
-                <strong>15K+</strong>
-                <span>เคสที่ไว้วางใจ</span>
-              </div>
-              <div>
-                <strong>98%</strong>
-                <span>ความพึงพอใจ</span>
-              </div>
-            </div>
-            <button className="text-link" type="button" onClick={openBooking}>
-              ปรึกษาแพทย์ฟรี <span>→</span>
-            </button>
-          </div>
-
-          <div className="before-after">
-            <div className="ba-image ba-after" />
-            <div
-              className="ba-image ba-before"
-              style={{ clipPath: `inset(0 ${100 - beforeAfter}% 0 0)` }}
-            />
-            <span className="ba-label before">ก่อนดูแล</span>
-            <span className="ba-label after">หลังดูแล</span>
-            <div className="ba-line" style={{ left: `${beforeAfter}%` }}>
-              <span>↔</span>
-            </div>
-            <input
-              aria-label="เลื่อนเพื่อเปรียบเทียบก่อนและหลัง"
-              type="range"
-              min="12"
-              max="88"
-              value={beforeAfter}
-              onChange={(event) => setBeforeAfter(Number(event.target.value))}
-            />
           </div>
         </div>
       </section>

@@ -1,6 +1,7 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { Check, Minus, Plus, ShoppingBag, Sparkles, Trash2 } from "lucide-react";
+import { Check, Minus, Plus, ShoppingBag, Trash2 } from "lucide-react";
 import CommerceShell from "@/components/CommerceShell";
 import { useCart } from "@/components/CartProvider";
 import { catalog, formatBaht } from "@/lib/catalog";
@@ -42,7 +43,7 @@ export default function CartPageClient() {
                 </div>
                 {lines.map(({ item, quantity }) => (
                   <article className="cart-line" key={item.id}>
-                    <div className="cart-line-mark"><Sparkles aria-hidden="true" /></div>
+                    <div className="cart-line-mark"><img src={siteHref(item.image)} alt="" /></div>
                     <div className="cart-line-copy">
                       <span>{item.category}</span>
                       <h3>{item.title}</h3>
@@ -62,12 +63,12 @@ export default function CartPageClient() {
               </div>
 
               <aside className="order-summary">
-                <span className="summary-badge">DEMO CHECKOUT</span>
+                <span className="summary-badge">ORDER SUMMARY</span>
                 <h2>สรุปคำสั่งซื้อ</h2>
                 <div className="summary-row"><span>จำนวนคอร์ส</span><strong>{itemCount} รายการ</strong></div>
                 <div className="summary-row"><span>ค่าบริการ</span><strong>ไม่มี</strong></div>
                 <div className="summary-total"><span>ยอดรวม</span><strong>{formatBaht(subtotal)} <small>บาท</small></strong></div>
-                <p><Check aria-hidden="true" /> ราคานี้เป็นยอดทดลอง โปรดให้คลินิกยืนยันสิทธิ์และเงื่อนไขก่อนรับบริการ</p>
+                <p><Check aria-hidden="true" /> ทีมคลินิกจะตรวจสอบราคา สิทธิ์ และเงื่อนไขอีกครั้งก่อนยืนยันรายการ</p>
                 <a className="checkout-button" href={siteHref("/checkout/")}>สรุปและกรอกข้อมูล <span>→</span></a>
                 <small>ขั้นตอนถัดไปยังไม่ตัดเงิน</small>
               </aside>
@@ -83,6 +84,7 @@ export default function CartPageClient() {
               <div className="suggestion-grid">
                 {suggestions.map((item) => (
                   <article key={item.id}>
+                    <img loading="lazy" src={siteHref(item.image)} alt={`โปรโมชั่น ${item.title}`} />
                     <span>{item.category}</span>
                     <h3>{item.title}</h3>
                     <p>{item.detail}</p>

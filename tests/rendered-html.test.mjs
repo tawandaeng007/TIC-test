@@ -7,7 +7,7 @@ const routes = [
   ["/services", "บริการที่ออกแบบเพื่อคุณ"],
   ["/promotion", "สิทธิพิเศษจาก TIC Clinic"],
   ["/reviews", "เสียงจากผู้ใช้บริการจริง"],
-  ["/results", "ผลลัพธ์ที่ยังคงเป็นคุณ"],
+  ["/results", "ผลงานจากเคสที่ได้รับอนุญาต"],
   ["/contact", "เริ่มต้นปรึกษาเราได้วันนี้"],
   ["/cart", "ตะกร้าของคุณ"],
   ["/checkout", "ข้อมูลสำหรับรับบริการ"],
@@ -50,14 +50,25 @@ test("server-renders every clinic page", async () => {
   }
 });
 
-test("cart and checkout are clearly demo-only and never render card fields", async () => {
+test("cart and checkout use production copy and never render card fields", async () => {
   const cartHtml = await (await render("/cart")).text();
   const checkoutHtml = await (await render("/checkout")).text();
 
-  assert.match(cartHtml, /ยังไม่มีการตัดเงินหรือรับข้อมูลบัตร/);
-  assert.match(checkoutHtml, /หน้าทดลอง/);
-  assert.match(checkoutHtml, /ไม่มีการส่งคำสั่งซื้อ ตัดเงิน/);
+  assert.match(cartHtml, /ทีมคลินิกจะยืนยันรายการ/);
+  assert.match(checkoutHtml, /ช่องทางชำระออนไลน์ยังไม่เปิดใช้งาน/);
+  assert.doesNotMatch(`${cartHtml}${checkoutHtml}`, /DEMO|mockup|ม็อคอัพ|หน้าทดลอง|ระบบทดลอง/i);
   assert.doesNotMatch(checkoutHtml, /name="(?:card|cardNumber|cvv|cvc|expiry)"/i);
+});
+
+test("main site uses supplied promotion artwork and removes fabricated result claims", async () => {
+  const homeHtml = await (await render("/")).text();
+  const promotionHtml = await (await render("/promotion")).text();
+  const visible = `${homeHtml}${promotionHtml}`.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, "").replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, "").replace(/<[^>]+>/g, "");
+
+  assert.match(homeHtml, /images\/promotions\/lip-filler\.jpg/);
+  assert.match(promotionHtml, /โปรโมชั่นและโปรแกรมทั้งหมด/);
+  assert.match(visible, /Filler AMD 3 แถม 1/);
+  assert.doesNotMatch(visible, /15K|98%|2,500 รีวิว|ก่อนดูแล|หลังดูแล|หมองคล้ำ/);
 });
 
 test("Lucky Spin shows confirmed values, never probability copy or prize images", async () => {

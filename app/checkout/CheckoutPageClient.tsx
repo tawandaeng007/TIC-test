@@ -52,9 +52,9 @@ export default function CheckoutPageClient() {
     <CommerceShell step="checkout">
       <section className="commerce-hero checkout-hero">
         <div className="container">
-          <span className="section-kicker">SECURE DEMO CHECKOUT</span>
-          <h1>{stage === "details" ? "ข้อมูลสำหรับรับบริการ" : "พร้อมไปขั้นตอนชำระเงิน"}</h1>
-          <p>{stage === "details" ? "กรอกข้อมูลสำหรับออกใบสรุปและให้ทีมคลินิกติดต่อกลับ" : "ตรวจข้อมูลเรียบร้อยแล้ว เหลือเพียงเชื่อมระบบรับชำระเงินจริง"}</p>
+          <span className="section-kicker">SECURE CHECKOUT</span>
+          <h1>{stage === "details" ? "ข้อมูลสำหรับรับบริการ" : "ตรวจสอบก่อนชำระเงิน"}</h1>
+          <p>{stage === "details" ? "กรอกข้อมูลสำหรับออกใบสรุปและให้ทีมคลินิกติดต่อกลับ" : "ข้อมูลของคุณครบแล้ว กรุณารอทีมคลินิกยืนยันรายการและช่องทางชำระ"}</p>
         </div>
       </section>
 
@@ -74,7 +74,7 @@ export default function CheckoutPageClient() {
               <form className="checkout-form" onSubmit={submitDetails}>
                 <div className="checkout-panel-heading">
                   <span>01</span>
-                  <div><h2>ข้อมูลผู้รับบริการ</h2><p>ข้อมูลนี้ใช้เฉพาะในหน้าทดลองและจะไม่ถูกส่งไปยังคลินิก</p></div>
+                  <div><h2>ข้อมูลผู้รับบริการ</h2><p>กรอกข้อมูลติดต่อให้ครบเพื่อเตรียมสรุปรายการ</p></div>
                 </div>
 
                 <div className="form-grid">
@@ -128,7 +128,7 @@ export default function CheckoutPageClient() {
 
                 <label className="checkout-consent">
                   <input required type="checkbox" />
-                  <span>ฉันตรวจสอบข้อมูลแล้ว และเข้าใจว่านี่เป็นระบบทดลองที่ยังไม่มีการส่งคำสั่งซื้อหรือตัดเงินจริง</span>
+                  <span>ฉันตรวจสอบข้อมูลแล้ว และยินยอมให้ทีมคลินิกติดต่อกลับเพื่อยืนยันรายการ ราคา และวันรับบริการ</span>
                 </label>
                 <button className="checkout-button checkout-submit" type="submit">ตรวจสอบและไปหน้าชำระเงิน <span>→</span></button>
               </form>
@@ -139,28 +139,28 @@ export default function CheckoutPageClient() {
             <div className="payment-ready-layout">
               <section className="payment-ready-card">
                 <div className="payment-ready-icon"><LockKeyhole aria-hidden="true" /></div>
-                <span className="summary-badge">PAYMENT GATEWAY READY</span>
-                <h2>ข้อมูลครบแล้ว เหลือเพียงเชื่อมระบบรับชำระ</h2>
-                <p>หน้านี้ตั้งใจหยุดก่อนกรอกเลขบัตร จึงไม่มีการเก็บข้อมูลสำคัญ ไม่มีการส่งคำสั่งซื้อ และไม่มียอดเงินถูกตัด</p>
-                <div className="demo-customer">
+                <span className="summary-badge">PAYMENT INFORMATION</span>
+                <h2>รอทีมคลินิกยืนยันก่อนชำระเงิน</h2>
+                <p>ช่องทางชำระออนไลน์ยังไม่เปิดใช้งาน ทีมคลินิกจะตรวจสอบสิทธิ์ ราคา และติดต่อกลับเพื่อแจ้งขั้นตอนถัดไป</p>
+                <div className="customer-summary">
                   <span>ผู้รับบริการ</span><strong>{data.fullName}</strong>
                   <span>ติดต่อ</span><strong>{data.phone}</strong>
                   <span>ยอดที่เตรียมชำระ</span><strong>{formatBaht(subtotal)} บาท</strong>
                 </div>
                 <div className="payment-placeholder">
                   <CreditCard aria-hidden="true" />
-                  <div><strong>ช่องกรอกบัตรจะอยู่ตรงนี้</strong><span>จะเปิดใช้งานเมื่อเชื่อมผู้ให้บริการรับชำระเงินแล้ว</span></div>
+                  <div><strong>ชำระเงินออนไลน์</strong><span>กำลังอยู่ระหว่างเปิดให้บริการ</span></div>
                 </div>
-                <button className="checkout-button is-disabled" type="button" disabled>ยังไม่เปิดรับชำระเงินจริง</button>
+                <button className="checkout-button is-disabled" type="button" disabled>ชำระออนไลน์เร็ว ๆ นี้</button>
                 <button className="edit-details-button" type="button" onClick={() => setStage("details")}><ArrowLeft /> กลับไปแก้ไขข้อมูล</button>
               </section>
               <aside className="payment-trust-card">
                 <ShieldCheck aria-hidden="true" />
-                <h3>ออกแบบพร้อมต่อระบบจริง</h3>
+                <h3>ข้อมูลรายการของคุณ</h3>
                 <ul>
                   <li><Check /> ตะกร้าจำรายการบนอุปกรณ์นี้</li>
                   <li><Check /> ตรวจฟอร์มสำคัญก่อนดำเนินการ</li>
-                  <li><Check /> ไม่รับหรือจัดเก็บเลขบัตรในเดโม</li>
+                  <li><Check /> ยังไม่มีการรับหรือจัดเก็บข้อมูลบัตร</li>
                 </ul>
                 <a href={siteHref("/cart/")}>กลับไปดูตะกร้า</a>
               </aside>
@@ -184,7 +184,7 @@ function OrderSummary({ lines, itemCount, subtotal }: { lines: ReturnType<typeof
       </div>
       <div className="summary-row"><span>รวม {itemCount} รายการ</span><strong>ไม่มีค่าบริการ</strong></div>
       <div className="summary-total"><span>ยอดรวม</span><strong>{formatBaht(subtotal)} <small>บาท</small></strong></div>
-      <p><ShieldCheck aria-hidden="true" /> ระบบทดลองจะไม่จัดเก็บข้อมูลฟอร์มนี้เมื่อออกจากหน้า</p>
+      <p><ShieldCheck aria-hidden="true" /> ข้อมูลในแบบฟอร์มนี้ยังไม่ถูกส่งจนกว่าจะเชื่อมระบบยืนยันรายการกับคลินิก</p>
     </aside>
   );
 }

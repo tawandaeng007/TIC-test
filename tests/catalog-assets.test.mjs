@@ -1,0 +1,15 @@
+import assert from "node:assert/strict";
+import test from "node:test";
+import { access, readFile } from "node:fs/promises";
+
+test("promotion catalog has unique products with local artwork", async () => {
+  const source = await readFile(new URL("../lib/catalog.ts", import.meta.url), "utf8");
+  const ids = [...source.matchAll(/id: "([^"]+)"/g)].map((match) => match[1]);
+  const images = [...source.matchAll(/image: "(\/images\/promotions\/[^"]+)"/g)].map((match) => match[1]);
+
+  assert.equal(ids.length, 22);
+  assert.equal(new Set(ids).size, ids.length, "product ids must be unique");
+  assert.equal(images.length, ids.length);
+  assert.equal(new Set(images).size, images.length, "promotion artwork must not be duplicated");
+  for (const image of images) await access(new URL(`../public${image}`, import.meta.url));
+});

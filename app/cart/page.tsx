@@ -3,7 +3,7 @@ import CartPageClient from "./CartPageClient";
 
 export const metadata: Metadata = {
   title: "ตะกร้าของฉัน | TIC Clinic",
-  description: "เลือกและตรวจสอบคอร์ส TIC Clinic ก่อนดำเนินการสั่งซื้อแบบทดลอง",
+  description: "เลือกและตรวจสอบโปรโมชั่นหรือโปรแกรม TIC Clinic ก่อนยืนยันรายการ",
 };
 
 export default function CartPage() {

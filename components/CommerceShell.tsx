@@ -20,8 +20,8 @@ export default function CommerceShell({
     <main className="commerce-page">
       <div className="commerce-topbar">
         <div className="container commerce-topbar-inner">
-          <span><ShieldCheck aria-hidden="true" /> ระบบสั่งซื้อทดลองของ TIC Clinic</span>
-          <span>ยังไม่มีการตัดเงินหรือรับข้อมูลบัตร</span>
+          <span><ShieldCheck aria-hidden="true" /> เลือกโปรแกรมออนไลน์กับ TIC Clinic</span>
+          <span>ทีมคลินิกจะยืนยันรายการและเงื่อนไขก่อนชำระ</span>
         </div>
       </div>
       <header className="commerce-header">
@@ -52,7 +52,7 @@ export default function CommerceShell({
       <footer className="commerce-footer">
         <div className="container">
           <span>TIC CLINIC · SARABURI</span>
-          <p>ระบบนี้เป็นหน้าทดลอง ไม่มีการส่งคำสั่งซื้อ ตัดเงิน หรือจัดเก็บข้อมูลบัตร</p>
+          <p>การสั่งซื้อจะสมบูรณ์เมื่อได้รับการยืนยันจากทีมคลินิก · ช่องทางชำระออนไลน์ยังไม่เปิดใช้งาน</p>
         </div>
       </footer>
     </main>
