@@ -4010,3 +4010,218 @@ footer,
     background: rgba(245, 250, 255, 0.96);
   }
 }
+
+/* Shared moving scenery, lifted directly from the TIC Lucky Spin atmosphere. */
+.clinic-site,
+.commerce-page {
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+}
+
+.spin-backdrop {
+  position: fixed;
+  z-index: -1;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 24% 30%, #fff 0, transparent 46%),
+    radial-gradient(ellipse at 78% 35%, #d5e7ff 0, transparent 57%),
+    linear-gradient(135deg, #f2f8ff, #edf5ff 52%, #d1e4ff);
+}
+
+.spin-silk {
+  position: absolute;
+  width: 145%;
+  height: 68%;
+  left: -23%;
+  bottom: -46%;
+  border: 14px solid rgba(255, 255, 255, 0.46);
+  border-radius: 50%;
+  box-shadow: 0 -9px 14px rgba(255, 255, 255, 0.79), 0 -25px 22px rgba(185, 217, 255, 0.42), inset 0 8px 12px #fff, inset 0 30px 25px rgba(169, 207, 255, 0.3);
+  transform: rotate(-14deg);
+  animation: spinSilkDrift 18s ease-in-out infinite alternate;
+}
+
+.spin-silk-two {
+  top: -67%;
+  bottom: auto;
+  left: 35%;
+  width: 110%;
+  height: 104%;
+  border-width: 5px;
+  transform: rotate(26deg);
+  animation-delay: -7s;
+}
+
+.spin-silk-three {
+  left: -48%;
+  bottom: -57%;
+  height: 70%;
+  border-width: 6px;
+  transform: rotate(18deg);
+  animation-delay: -12s;
+}
+
+.spin-bubble {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle at 65% 70%, transparent 37%, rgba(184, 216, 255, 0.4) 52%, rgba(255, 255, 255, 0.9) 62%, rgba(144, 186, 251, 0.54) 67%, rgba(255, 255, 255, 0.78) 72%, rgba(141, 193, 255, 0.44) 76%, transparent 79%), radial-gradient(ellipse at 27% 20%, #fff 1%, rgba(255, 255, 255, 0.67) 7%, transparent 23%);
+  box-shadow: inset 2px -3px 5px rgba(104, 156, 234, 0.34), 2px 7px 16px rgba(67, 126, 195, 0.08);
+  animation: spinBubbleFloat 7s ease-in-out infinite;
+}
+
+.spin-bubble-0 { width: 94px; height: 94px; left: -40px; top: 85px; }
+.spin-bubble-1 { width: 43px; height: 43px; left: 31%; top: 51%; animation-delay: -2s; }
+.spin-bubble-2 { width: 65px; height: 65px; left: 28%; bottom: 110px; animation-delay: -4s; }
+.spin-bubble-3 { width: 150px; height: 150px; right: -60px; bottom: -25px; animation-delay: -1s; }
+.spin-bubble-4 { width: 30px; height: 30px; right: 28%; top: 38px; animation-delay: -5s; }
+
+.spin-sparkle {
+  position: absolute;
+  width: 23px;
+  height: 23px;
+  top: calc(12% + var(--spin-index) * 13%);
+  left: calc(9% + var(--spin-index) * 17%);
+  background: #fff;
+  clip-path: polygon(50% 0, 59% 41%, 100% 50%, 59% 59%, 50% 100%, 41% 59%, 0 50%, 41% 41%);
+  filter: drop-shadow(0 0 9px #fff);
+  animation: spinSparkleGlow 4.8s ease-in-out infinite;
+  animation-delay: calc(var(--spin-index) * -0.65s);
+}
+
+.tic-logo {
+  position: relative;
+  display: block;
+  width: 116px;
+  aspect-ratio: 865 / 550;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.tic-logo img {
+  position: absolute;
+  top: -72.7273%;
+  left: -22.5434%;
+  width: 144.9711%;
+  max-width: none;
+  height: auto;
+  mix-blend-mode: multiply;
+}
+
+.brand:has(.tic-logo) {
+  width: auto;
+  letter-spacing: 0;
+}
+
+.footer-brand:has(.tic-logo) {
+  width: fit-content;
+  padding: 7px 11px;
+  border: 1px solid rgba(255, 255, 255, 0.78);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: inset 0 1px 0 #fff, 0 10px 28px rgba(1, 25, 61, 0.2);
+}
+
+.tic-logo-mobile {
+  width: 57px;
+}
+
+/* Every artwork keeps its full composition inside a consistent 4:5 frame. */
+.promo-art-button,
+.promotion-product-image,
+.product-modal-art {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: #dcecff;
+}
+
+.promo-art-button::before,
+.promotion-product-image::before,
+.product-modal-art::before {
+  position: absolute;
+  z-index: -1;
+  inset: -18px;
+  content: "";
+  background-image: var(--promotion-art);
+  background-position: center;
+  background-size: cover;
+  filter: blur(18px) saturate(0.85) brightness(1.1);
+  opacity: 0.58;
+  transform: scale(1.1);
+}
+
+.promo-art-button {
+  width: min(100%, 400px);
+  height: auto;
+  aspect-ratio: 4 / 5;
+  justify-self: center;
+}
+
+.promo-art-button img,
+.promotion-product-image img,
+.product-modal-art img {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+
+.promotion-product-image > span {
+  z-index: 2;
+}
+
+.product-modal-art {
+  aspect-ratio: 4 / 5;
+}
+
+@keyframes spinSilkDrift {
+  from { translate: -1.5% 0; scale: 0.99; }
+  to { translate: 1.5% -2%; scale: 1.02; }
+}
+
+@keyframes spinBubbleFloat {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  50% { transform: translateY(-18px) rotate(4deg); }
+}
+
+@keyframes spinSparkleGlow {
+  0%, 100% { opacity: 0.2; transform: scale(0.7) rotate(0); }
+  45% { opacity: 0.95; transform: scale(1.12) rotate(18deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spin-backdrop * { animation: none !important; }
+}
+
+@media (max-width: 520px) {
+  .promotion-product-grid {
+    gap: 20px;
+  }
+
+  .promotion-product-image {
+    aspect-ratio: 4 / 5;
+  }
+
+  .promotion-product-content {
+    padding: 19px;
+  }
+
+  .promo-art-button {
+    width: 100%;
+  }
+
+  .spin-silk {
+    width: 210%;
+    left: -55%;
+  }
+
+  .spin-bubble-3 {
+    width: 112px;
+    height: 112px;
+  }
+}

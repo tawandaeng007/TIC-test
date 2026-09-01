@@ -5,6 +5,8 @@ import { type CSSProperties, useEffect, useState } from "react";
 import { CalendarHeart, MessageSquareText, Phone, ShoppingBag } from "lucide-react";
 import { useCart } from "@/components/CartProvider";
 import PromotionShowcase from "@/components/PromotionShowcase";
+import SpinBackdrop from "@/components/SpinBackdrop";
+import TicLogo from "@/components/TicLogo";
 import { catalog as programs } from "@/lib/catalog";
 
 const reviewCases = [
@@ -132,11 +134,11 @@ export default function ClinicSite({ page = "home" }: { page?: ClinicPage }) {
         } as CSSProperties
       }
     >
+      <SpinBackdrop />
       <header className="site-header">
         <div className="container nav-wrap">
           <a className="brand" href={siteHref("/")} aria-label="TIC Clinic หน้าแรก">
-            <strong>TIC</strong>
-            <span>CLINIC</span>
+            <TicLogo />
           </a>
 
           <button
@@ -348,8 +350,7 @@ export default function ClinicSite({ page = "home" }: { page?: ClinicPage }) {
         <div className="container footer-grid">
           <div>
             <a className="brand footer-brand" href={siteHref("/")}>
-              <strong>TIC</strong>
-              <span>CLINIC</span>
+              <TicLogo />
             </a>
             <p>
               คลินิกความงามที่เชื่อว่าความสวยที่ดีที่สุด
@@ -399,8 +400,7 @@ export default function ClinicSite({ page = "home" }: { page?: ClinicPage }) {
           href={siteHref("/")}
         >
           <span className="mobile-nav-logo">
-            <strong>TIC</strong>
-            <small>CLINIC</small>
+            <TicLogo className="tic-logo-mobile" />
           </span>
         </a>
         <a href={siteHref("/cart/")}>

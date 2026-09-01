@@ -1,13 +1,15 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { type CSSProperties, useEffect, useMemo, useState } from "react";
 import { ArrowLeft, ArrowRight, ShoppingBag, X } from "lucide-react";
 import { catalog, featuredCatalog, formatBaht, type CatalogItem } from "@/lib/catalog";
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 const siteHref = (path: string) => `${basePath}${path}`;
 const categories = ["ทั้งหมด", "ปรับรูปหน้า", "ยกกระชับ", "ดูแลผิว", "ดริปวิตามิน", "เลเซอร์", "ดูแลรูปร่าง"] as const;
+const promotionArtStyle = (path: string) =>
+  ({ "--promotion-art": `url("${siteHref(path)}")` }) as CSSProperties;
 
 export default function PromotionShowcase({
   mode,
@@ -43,7 +45,7 @@ export default function PromotionShowcase({
       {(mode === "home" || mode === "catalog") && (
         <section className="promo-showcase" aria-label="โปรโมชั่นเด่น">
           <div className="container promo-stage" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)} onFocusCapture={() => setPaused(true)} onBlurCapture={() => setPaused(false)}>
-            <button className="promo-art-button" type="button" onClick={() => setSelected(featured)} aria-label={`ดูรายละเอียด ${featured.title}`}>
+            <button className="promo-art-button" style={promotionArtStyle(featured.image)} type="button" onClick={() => setSelected(featured)} aria-label={`ดูรายละเอียด ${featured.title}`}>
               <img src={siteHref(featured.image)} alt={`โปรโมชั่น ${featured.title}`} />
             </button>
             <div className="promo-stage-copy">
@@ -82,7 +84,7 @@ export default function PromotionShowcase({
           <div className={mode === "home" ? "promotion-product-grid is-home" : "promotion-product-grid"}>
             {visibleItems.map((item) => (
               <article className="promotion-product-card" key={item.id}>
-                <button className="promotion-product-image" type="button" onClick={() => setSelected(item)} aria-label={`ดูรายละเอียด ${item.title}`}>
+                <button className="promotion-product-image" style={promotionArtStyle(item.image)} type="button" onClick={() => setSelected(item)} aria-label={`ดูรายละเอียด ${item.title}`}>
                   <img loading="lazy" src={siteHref(item.image)} alt={`โปรโมชั่น ${item.title}`} />
                   <span>{item.tag}</span>
                 </button>
@@ -106,7 +108,7 @@ export default function PromotionShowcase({
         <div className="product-modal-backdrop" role="presentation" onMouseDown={() => setSelected(null)}>
           <section className="product-modal" role="dialog" aria-modal="true" aria-labelledby="product-modal-title" onMouseDown={(event) => event.stopPropagation()}>
             <button className="product-modal-close" type="button" onClick={() => setSelected(null)} aria-label="ปิดรายละเอียด"><X /></button>
-            <div className="product-modal-art"><img src={siteHref(selected.image)} alt={`โปรโมชั่น ${selected.title}`} /></div>
+            <div className="product-modal-art" style={promotionArtStyle(selected.image)}><img src={siteHref(selected.image)} alt={`โปรโมชั่น ${selected.title}`} /></div>
             <div className="product-modal-copy">
               <span>{selected.category}</span>
               <h2 id="product-modal-title">{selected.title}</h2>

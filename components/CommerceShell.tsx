@@ -3,6 +3,8 @@
 import type { ReactNode } from "react";
 import { ArrowLeft, ShoppingBag } from "lucide-react";
 import { useCart } from "@/components/CartProvider";
+import SpinBackdrop from "@/components/SpinBackdrop";
+import TicLogo from "@/components/TicLogo";
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 const siteHref = (path: string) => path === "/" ? `${basePath}/` : `${basePath}${path}`;
@@ -18,14 +20,14 @@ export default function CommerceShell({
 
   return (
     <main className="commerce-page">
+      <SpinBackdrop />
       <header className="commerce-header">
         <div className="container commerce-header-inner">
           <a className="commerce-back" href={siteHref("/")}>
             <ArrowLeft aria-hidden="true" /> กลับหน้าเว็บไซต์
           </a>
           <a className="brand" href={siteHref("/")} aria-label="TIC Clinic หน้าแรก">
-            <strong>TIC</strong>
-            <span>CLINIC</span>
+            <TicLogo />
           </a>
           <a className="commerce-bag" href={siteHref("/cart/")} aria-label={`ตะกร้า ${itemCount} รายการ`}>
             <ShoppingBag aria-hidden="true" />

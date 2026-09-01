@@ -66,7 +66,10 @@ test("main site uses supplied promotion artwork and removes fabricated result cl
   const visible = `${homeHtml}${promotionHtml}`.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, "").replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, "").replace(/<[^>]+>/g, "");
 
   assert.match(homeHtml, /images\/promotions\/lip-filler\.jpg/);
+  assert.match(homeHtml, /class="spin-backdrop"/);
+  assert.match(homeHtml, /images\/tic-clinic-logo\.png/);
   assert.match(promotionHtml, /โปรโมชั่นและโปรแกรมทั้งหมด/);
+  assert.match(promotionHtml, /--promotion-art:url/);
   assert.match(visible, /Filler AMD 3 แถม 1/);
   assert.doesNotMatch(visible, /15K|98%|2,500 รีวิว|ก่อนดูแล|หลังดูแล|หมองคล้ำ/);
 });
