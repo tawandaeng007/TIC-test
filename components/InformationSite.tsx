@@ -1,11 +1,13 @@
 import Link from "next/link";
-import { BookOpen, ArrowUpRight, ShieldCheck, Sun, Heart, Menu } from "lucide-react";
+/* eslint-disable @next/next/no-img-element */
+import { ArrowUpRight, Menu } from "lucide-react";
 import SpinBackdrop from "./SpinBackdrop";
 import TicLogo from "./TicLogo";
 import { articles } from "@/lib/articles";
 import "./information.css";
 
 const nav = [["/", "หน้าแรก"], ["/articles/", "ความรู้สุขภาพผิว"], ["/about/", "เกี่ยวกับ"], ["/contact/", "ข้อมูลติดต่อ"]];
+const imageBase = (process.env.NEXT_PUBLIC_BASE_PATH ?? "") + "/images/";
 export default function InformationSite({page = "home", slug}: {page?: string; slug?: string}) {
   const article = articles.find(item => item.slug === slug);
   return <main className="information-site">
@@ -14,16 +16,20 @@ export default function InformationSite({page = "home", slug}: {page?: string; s
       <nav aria-label="เมนูหลัก">{nav.map(([href,label]) => <Link key={href} href={href}>{label}</Link>)}</nav>
       <details className="info-mobile-menu"><summary aria-label="เปิดเมนู"><Menu /></summary><nav>{nav.map(([href,label]) => <Link key={href} href={href}>{label}</Link>)}</nav></details>
     </header>
-    {page === "home" && <section className="info-hero">
-      <div><span className="info-kicker">TIC · SKIN JOURNAL</span><h1>รู้จักผิว<br/><em>เข้าใจการดูแล</em></h1><p>อ่านเรื่องสุขภาพผิว หลักการของหัตถการ และข้อควรรู้ก่อนตัดสินใจ จากข้อมูลที่มีแหล่งอ้างอิงให้ตรวจสอบ</p><Link className="info-button" href="/articles/">อ่านบทความ <ArrowUpRight /></Link></div>
-      <Link className="info-feature" href="/articles/sunscreen-basics/"><Sun size={52} strokeWidth={1}/><span>DAILY CARE</span><h2>กันแดดหนึ่งหลอด<br/>บอกอะไรเราบ้าง</h2><p>เข้าใจ UVA, UVB และการใช้ให้เหมาะกับชีวิตประจำวัน</p><span className="info-read">อ่านเรื่องนี้ <ArrowUpRight /></span></Link>
-    </section>}
+    {page === "home" && <>
+      <section className="editorial-home-hero">
+        <img className="editorial-model" src={imageBase+"clinic-editorial-hero.png"} alt="นางแบบประกอบเว็บไซต์ TIC" fetchPriority="high" />
+        <div className="editorial-hero-copy"><span className="info-kicker">TIC CLINIC</span><h1>เข้าใจผิวของคุณ<br/><strong>เริ่มต้นด้วยความรู้ที่ถูกต้อง</strong></h1><p>เรื่องสุขภาพผิวและข้อควรรู้เกี่ยวกับหัตถการ<br/>พร้อมแหล่งข้อมูลให้ศึกษาเพิ่มเติม</p><Link className="info-button" href="/articles/">อ่านบทความ <ArrowUpRight /></Link></div>
+      </section>
+      <section className="editorial-feature-wrap"><Link className="editorial-feature-card" href="/articles/sunscreen-basics/"><img src={imageBase+"skin-education.png"} alt="ภาพประกอบการทากันแดดในชีวิตประจำวัน" /><div><span className="info-kicker">บทความแนะนำ · DAILY CARE</span><h2>รู้จักกันแดด<br/>ก่อนเริ่มวันใหม่</h2><p>เข้าใจ UVA, UVB และการใช้กันแดดให้เหมาะกับกิจกรรมของคุณ</p><span className="info-button">อ่านเรื่องนี้ <ArrowUpRight /></span></div></Link></section>
+    </>}
     {(page === "home" || page === "articles") && <section className="info-section">
       <div className="info-heading"><div><span className="info-kicker">READ & UNDERSTAND</span><h2>ห้องสมุดสุขภาพผิว</h2></div><p>พื้นฐานที่เข้าใจง่าย พร้อมข้อจำกัดและความเสี่ยงที่ควรรู้</p></div>
-      <div className="info-article-grid">{articles.map((item,index) => <Link className="info-article-card" key={item.slug} href={`/articles/${item.slug}/`}><div className={`info-card-top tone-${index%3}`}>{index%3===0?<BookOpen />:index%3===1?<Heart />:<ShieldCheck />}<span>{item.category}</span></div><div className="info-card-copy"><h3>{item.title}</h3><p>{item.intro}</p><span className="info-read">อ่านต่อ <ArrowUpRight /></span></div></Link>)}</div>
+      <div className="info-article-grid">{articles.map((item,index) => <Link className="info-article-card" key={item.slug} href={`/articles/${item.slug}/`}><div className={`editorial-card-image crop-${index%2}`}><img loading="lazy" src={imageBase+(index%2===0?"clinic-editorial-hero.png":"skin-education.png")} alt="ภาพประกอบบทความสุขภาพผิว ไม่ใช่ภาพผลการรักษา" /><span>{item.category}</span></div><div className="info-card-copy"><h3>{item.title}</h3><p>{item.intro}</p><span className="info-read">อ่านต่อ <ArrowUpRight /></span></div></Link>)}</div>
     </section>}
     {page === "article" && article && <article className="info-reading">
       <Link href="/articles/">← บทความทั้งหมด</Link><span className="info-kicker">{article.category}</span><h1>{article.title}</h1><p className="info-lead">{article.intro}</p>
+      <img className="editorial-article-cover" src={imageBase+"skin-education.png"} alt="ภาพประกอบการดูแลผิวในชีวิตประจำวัน" />
       {article.sections.map(section => <section key={section.heading}><h2>{section.heading}</h2><p>{section.body}</p></section>)}
       <aside className="info-source"><h2>แหล่งข้อมูล</h2>{article.sources.map(source=><a key={source.url} href={source.url} target="_blank" rel="noreferrer">{source.title} <ArrowUpRight size={16}/></a>)}<p>เรียบเรียงเป็นข้อมูลทั่วไป ไม่ใช่การวินิจฉัยหรือคำแนะนำเฉพาะบุคคล · ตรวจแหล่งข้อมูล 9 กันยายน 2569</p></aside>
     </article>}

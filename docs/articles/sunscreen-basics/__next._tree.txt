@@ -1,4 +1,5 @@
 :HL["/TIC-test/_next/static/chunks/0v2n.y16vve1l.css","style"]
-:HL["/TIC-test/_next/static/chunks/0zb2fa8dh.67l.css","style"]
+:HL["/TIC-test/_next/static/chunks/184_41ek8tg1v.css","style"]
 :HL["/TIC-test/images/tic-clinic-logo-transparent.png","image"]
-0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"articles","param":null,"prefetchHints":0,"slots":{"children":{"name":"slug","param":{"type":"d","key":"sunscreen-basics","siblings":null},"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}}}},"staleTime":300,"buildId":"vf2xiWZGwASJVGfuKVKpl"}
+:HL["/TIC-test/images/skin-education.png","image"]
+0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"articles","param":null,"prefetchHints":0,"slots":{"children":{"name":"slug","param":{"type":"d","key":"sunscreen-basics","siblings":null},"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}}}},"staleTime":300,"buildId":"o6hFwFSpl7iPUX19aiH-q"}

@@ -1,5 +1,7 @@
 # TIC Clinic: information-only mode
 
+Visual preference confirmed 2026-09-09: preserve the original homepage hero, original model and photo-led glass cards. Replace promotional card CONTENT with educational articles; do not replace the clinic homepage with an icon-only journal layout. Restoring visual design does not authorize prices, reviews, booking, commerce or spin.
+
 Owner instruction 2026-09-09: company/licensing is pending. Keep lib/site-policy.json in information-only mode. No prices, discounts, promotions, giveaways, Lucky Spin, customer reviews, before/after, branded sales copy or booking invitations. Apply this to routes, metadata and directly accessible published assets. Never claim legal approval.
 
 ## Restoring features
