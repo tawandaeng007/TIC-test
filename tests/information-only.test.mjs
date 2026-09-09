@@ -32,7 +32,18 @@ test("article detail links exist and cite real source pages",async()=>{
     const html=await readFile(new URL("articles/"+dir.name+"/index.html",root),"utf8");
     assert.match(html,/แหล่งข้อมูล/);
     assert.match(html,/https:\/\/www\.(aad\.org|fda\.gov)/);
+    assert.match(html,/https:\/\/(?:www\.)?(?:si|rama)\.mahidol\.ac\.th/);
+    assert.ok(html.includes("images/articles/"+dir.name+".webp"));
+    await access(new URL("images/articles/"+dir.name+".webp",root));
     count++;
   }
   assert.equal(count,8);
+});
+test("homepage has slideshow controls and eight article images",async()=>{
+  const html=await readFile(new URL("index.html",root),"utf8");
+  assert.match(html,/สไลด์โชว์/);
+  assert.match(html,/หยุดสไลด์อัตโนมัติ/);
+  const pictures=new Set([...html.matchAll(/images\/articles\/([a-z-]+)\.webp/g)].map(m=>m[1]));
+  assert.equal(pictures.size,8);
+  assert.doesNotMatch(html,/skin-education\.png/);
 });

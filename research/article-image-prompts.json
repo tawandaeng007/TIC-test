@@ -1,0 +1,82 @@
+{
+  "tool": "Built-in image generation",
+  "date": "2026-09-09",
+  "purpose": "Eight illustrative article photographs; not real patients or treatment results",
+  "sharedPrompt": "Photorealistic premium Thai skin-health editorial photograph. Refined natural makeup, dark hair loosely tied, luminous genuinely textured skin, soft high-key studio light, icy blue, pearl white, understated champagne accents. Portrait 4:5, central subject with margin, no text, logos, brands, medical claims or before-after.",
+  "subjects": [
+    [
+      "understanding-fillers",
+      "portrait of adult Thai woman softly touching her cheek, balanced three-quarter profile, neutral educational portrait about facial anatomy; no injections"
+    ],
+    [
+      "botulinum-toxin",
+      "adult Thai woman with naturally expressive forehead and a gentle smile, looking toward a mirror, subtle real expression lines, educational portrait about facial muscles"
+    ],
+    [
+      "melasma-care",
+      "adult Thai woman with subtle natural pigmentation and freckles on cheek in soft indirect daylight, authentic healthy skin texture, no comparison"
+    ],
+    [
+      "sunscreen-basics",
+      "adult Thai woman in a white sleeveless modest blouse gently applying a small dab of sunscreen to her cheek in an elegant icy blue studio; no bottles"
+    ],
+    [
+      "acne-routine",
+      "adult Thai woman with a few mild natural facial blemishes gently washing her face with water in a clean white sink, no severe lesions"
+    ],
+    [
+      "avoid-popping",
+      "adult Thai woman looking at her cheek in a handheld unbranded mirror, hands relaxed away from blemishes, calm educational portrait"
+    ],
+    [
+      "laser-hair-basics",
+      "adult Thai woman in modest white clothing seated with smooth naturally textured forearm resting on a pale blue surface, no treatment being performed, educational skin and body-care editorial"
+    ],
+    [
+      "before-procedure",
+      "adult Thai woman in pale blue blouse writing a personal health history on a blank notebook, serene white and ice blue setting, no readable text, no physician impersonation"
+    ]
+  ],
+  "files": [
+    {
+      "slug": "understanding-fillers",
+      "output": "public/images/articles/understanding-fillers.webp",
+      "original": "C:\\Users\\Tawandaeng\\.codex\\generated_images\\019fa4e0-eac0-75e0-a5b9-da0c55ad311e\\exec-22e39905-745a-49ef-a117-fe37c2fad9ea.png"
+    },
+    {
+      "slug": "botulinum-toxin",
+      "output": "public/images/articles/botulinum-toxin.webp",
+      "original": "C:\\Users\\Tawandaeng\\.codex\\generated_images\\019fa4e0-eac0-75e0-a5b9-da0c55ad311e\\exec-61d78da3-1bc8-46bf-a46e-6f5ceafdb3f3.png"
+    },
+    {
+      "slug": "melasma-care",
+      "output": "public/images/articles/melasma-care.webp",
+      "original": "C:\\Users\\Tawandaeng\\.codex\\generated_images\\019fa4e0-eac0-75e0-a5b9-da0c55ad311e\\exec-0ee4f139-77d2-4f14-9182-7c27e2883864.png"
+    },
+    {
+      "slug": "sunscreen-basics",
+      "output": "public/images/articles/sunscreen-basics.webp",
+      "original": "C:\\Users\\Tawandaeng\\.codex\\generated_images\\019fa4e0-eac0-75e0-a5b9-da0c55ad311e\\exec-858f2db8-dec7-4349-83fd-6359a1e662e6.png"
+    },
+    {
+      "slug": "acne-routine",
+      "output": "public/images/articles/acne-routine.webp",
+      "original": "C:\\Users\\Tawandaeng\\.codex\\generated_images\\019fa4e0-eac0-75e0-a5b9-da0c55ad311e\\exec-d099dedf-1818-4e7d-bf53-416279d346dd.png"
+    },
+    {
+      "slug": "avoid-popping",
+      "output": "public/images/articles/avoid-popping.webp",
+      "original": "C:\\Users\\Tawandaeng\\.codex\\generated_images\\019fa4e0-eac0-75e0-a5b9-da0c55ad311e\\exec-7bbc93ef-3df0-4926-86a3-685b456bec7f.png"
+    },
+    {
+      "slug": "laser-hair-basics",
+      "output": "public/images/articles/laser-hair-basics.webp",
+      "original": "C:\\Users\\Tawandaeng\\.codex\\generated_images\\019fa4e0-eac0-75e0-a5b9-da0c55ad311e\\exec-83c7adc0-dd13-4a89-a011-946ca3cd9209.png"
+    },
+    {
+      "slug": "before-procedure",
+      "output": "public/images/articles/before-procedure.webp",
+      "original": "C:\\Users\\Tawandaeng\\.codex\\generated_images\\019fa4e0-eac0-75e0-a5b9-da0c55ad311e\\exec-d1b22956-b82f-460d-be93-c5c7f83c69bb.png"
+    }
+  ]
+}
