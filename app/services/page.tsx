@@ -1,11 +1,3 @@
-import type { Metadata } from "next";
-import ClinicSite from "../ClinicSite";
-
-export const metadata: Metadata = {
-  title: "บริการ | TIC Clinic",
-  description: "โปรแกรมปรับรูปหน้า ยกกระชับ และดูแลผิวจาก TIC Clinic",
-};
-
-export default function ServicesPage() {
-  return <ClinicSite page="services" />;
-}
+import InformationSite from "@/components/InformationSite";
+export const metadata = { title: "TIC | ข้อมูลและความรู้สุขภาพผิว", description: "ความรู้สุขภาพผิวและข้อมูลทั่วไป",  };
+export default function Page() { return <InformationSite page="articles" />; }

@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { CartProvider } from "@/components/CartProvider";
 import "./globals.css";
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
@@ -11,22 +10,22 @@ export const metadata: Metadata = {
       ? "https://tawandaeng007.github.io/TIC-test/"
       : "https://tic-clinic.example",
   ),
-  title: "TIC Clinic | ดูแลความงามอย่างมั่นใจ",
+  title: "TIC | ข้อมูลและความรู้สุขภาพผิว",
   description:
-    "คลินิกความงามระดับพรีเมียม ดูแลโดยแพทย์ผู้เชี่ยวชาญ ด้วยเทคโนโลยีที่ทันสมัยและผลลัพธ์ที่เป็นธรรมชาติ",
+    "บทความความรู้สุขภาพผิวและข้อมูลทั่วไป",
   openGraph: {
-    title: "TIC Clinic | ดูแลความงามอย่างมั่นใจ",
-    description: "ดูแลความงามและรับของขวัญพิเศษจาก TIC Clinic",
+    title: "TIC | ความรู้สุขภาพผิว",
+    description: "บทความความรู้สุขภาพผิวและข้อมูลทั่วไป",
     siteName: "TIC Clinic",
     locale: "th_TH",
     type: "website",
-    images: [{ url: "https://tawandaeng007.github.io/TIC-test/og.png", width: 1731, height: 909, alt: "TIC Clinic — TIC Lucky Spin" }],
+    images: [],
   },
   twitter: {
-    card: "summary_large_image",
-    title: "TIC Clinic | ดูแลความงามอย่างมั่นใจ",
-    description: "ดูแลความงามและรับของขวัญพิเศษจาก TIC Clinic",
-    images: ["https://tawandaeng007.github.io/TIC-test/og.png"],
+    card: "summary",
+    title: "TIC | ความรู้สุขภาพผิว",
+    description: "บทความความรู้สุขภาพผิวและข้อมูลทั่วไป",
+    images: [],
   },
   icons: {
     icon: `${basePath}/favicon.svg`,
@@ -42,7 +41,7 @@ export default function RootLayout({
   return (
     <html lang="th">
       <body>
-        <CartProvider>{children}</CartProvider>
+        {children}
       </body>
     </html>
   );
