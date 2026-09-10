@@ -18,7 +18,7 @@ test("all published routes and payloads exclude restricted content", async()=>{
 test("direct legacy links are closed and price/review image URLs are absent",async()=>{
   for(const route of ["cart","checkout","promotion","reviews","results","roulette"]){
     const html=await readFile(new URL(route+"/index.html",root),"utf8");
-    assert.match(html,/หน้านี้ยังไม่เปิดใช้งาน/);
+    assert.match(html,/ไม่พบหน้าที่คุณต้องการ/);
     assert.doesNotMatch(html,/<form|<dialog/);
   }
   for(const asset of ["images/promotions","images/reviews","og.png"]){

@@ -1,5 +1,7 @@
 # TIC Clinic: information-only mode
 
+Owner preference 2026-09-09: use a normal clinic editorial presentation, without public maintenance/pending-license/waiting-for-confirmation notices or repetitive information-only labels. Omit unverified contact/staff/hours fields instead of showing placeholders; never invent them. Retain concise medical article caveats and source attribution. Current edits are LOCAL ONLY: do not publish, push, or deploy until explicitly requested again.
+
 Visual preference confirmed 2026-09-09: preserve the original homepage hero, original model and photo-led glass cards. Replace promotional card CONTENT with educational articles; do not replace the clinic homepage with an icon-only journal layout. Restoring visual design does not authorize prices, reviews, booking, commerce or spin.
 
 Owner instruction 2026-09-09: company/licensing is pending. Keep lib/site-policy.json in information-only mode. No prices, discounts, promotions, giveaways, Lucky Spin, customer reviews, before/after, branded sales copy or booking invitations. Apply this to routes, metadata and directly accessible published assets. Never claim legal approval.

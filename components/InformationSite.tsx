@@ -7,7 +7,7 @@ import ArticleSlideshow from "./ArticleSlideshow";
 import { articles } from "@/lib/articles";
 import "./information.css";
 
-const nav = [["/", "หน้าแรก"], ["/articles/", "ความรู้สุขภาพผิว"], ["/about/", "เกี่ยวกับ"], ["/contact/", "ข้อมูลติดต่อ"]];
+const nav = [["/", "หน้าแรก"], ["/articles/", "ความรู้สุขภาพผิว"], ["/about/", "เกี่ยวกับ"], ["/contact/", "ติดต่อเรา"]];
 const imageBase = (process.env.NEXT_PUBLIC_BASE_PATH ?? "") + "/images/";
 export default function InformationSite({page = "home", slug}: {page?: string; slug?: string}) {
   const article = articles.find(item => item.slug === slug);
@@ -34,14 +34,14 @@ export default function InformationSite({page = "home", slug}: {page?: string; s
       {article.sections.map(section => <section key={section.heading}><h2>{section.heading}</h2><p>{section.body}</p></section>)}
       <aside className="info-source"><h2>แหล่งข้อมูล</h2>{article.sources.map(source=><a key={source.url} href={source.url} target="_blank" rel="noreferrer">{source.title} <ArrowUpRight size={16}/></a>)}<p>เรียบเรียงเป็นข้อมูลทั่วไป ไม่ใช่การวินิจฉัยหรือคำแนะนำเฉพาะบุคคล · ตรวจแหล่งข้อมูล 9 กันยายน 2569</p></aside>
     </article>}
-    {page === "about" && <section className="info-reading"><span className="info-kicker">ABOUT</span><h1>พื้นที่สำหรับความเข้าใจ<br/>เรื่องสุขภาพผิว</h1><p className="info-lead">เว็บไซต์อยู่ระหว่างปรับปรุงข้อมูลบริษัทและสถานพยาบาล ในช่วงนี้นำเสนอความรู้สุขภาพผิวและข้อมูลทั่วไป</p><h2>ข้อมูลที่ตรวจสอบได้</h2><p>บทความแสดงแหล่งอ้างอิง แยกความรู้ทั่วไปออกจากคำแนะนำเฉพาะบุคคล และอธิบายข้อจำกัดของหัตถการควบคู่กับหลักการทำงาน</p><h2>ข้อมูลแพทย์และสถานที่</h2><p>จะประกาศรายละเอียดเมื่อได้รับข้อมูลที่ยืนยันแล้ว รวมถึงชื่อและคุณวุฒิแพทย์ สถานที่ และกำหนดเปิดให้บริการ</p></section>}
-    {(page === "schedule" || page === "contact") && <section className="info-reading"><span className="info-kicker">INFORMATION</span><h1>{page==="schedule"?"ข้อมูลวันและเวลา":"ข้อมูลการติดต่อ"}</h1><p className="info-lead">อยู่ระหว่างยืนยันข้อมูลสำหรับประกาศอย่างเป็นทางการ</p><div className="info-facts"><div><h2>พื้นที่</h2><p>จังหวัดสระบุรี</p></div><div><h2>กำหนดเปิดและตารางแพทย์</h2><p>ยังไม่มีประกาศกำหนดการที่ยืนยัน</p></div><div><h2>พิกัดและการเดินทาง</h2><p>จะเพิ่มที่อยู่ พิกัด และข้อมูลที่จอดรถเมื่อยืนยันตำแหน่งแล้ว</p></div><div><h2>ช่องทางติดต่อ</h2><p>เบอร์โทรศัพท์และบัญชีทางการจะประกาศในหน้านี้เมื่อพร้อม</p></div></div></section>}
+    {page === "about" && <section className="info-reading"><span className="info-kicker">ABOUT TIC</span><h1>เกี่ยวกับ TIC</h1><p className="info-lead">เราเชื่อว่าการดูแลผิวเริ่มจากความเข้าใจ ทั้งสภาพผิวของตัวเองและข้อมูลที่ใช้ประกอบการตัดสินใจ</p><img className="editorial-article-cover" src={imageBase+"articles/understanding-fillers.webp"} alt="ภาพนางแบบประกอบเว็บไซต์ TIC" /><h2>เข้าใจผิวในแบบของคุณ</h2><p>ผิวของแต่ละคนมีความแตกต่าง การดูแลจึงควรคำนึงถึงสภาพผิว สุขภาพ และกิจวัตรประจำวัน ไม่จำเป็นต้องใช้วิธีเดียวกันกับคนอื่น</p><h2>รู้ก่อนเลือกดูแล</h2><p>สำรวจเรื่องการดูแลผิวในชีวิตประจำวัน ทำความเข้าใจหลักการของหัตถการ ตลอดจนข้อจำกัดและข้อควรระวัง ผ่านบทความที่มีแหล่งอ้างอิงให้ศึกษาเพิ่มเติม</p><Link className="info-button" href="/articles/">อ่านบทความ <ArrowUpRight /></Link></section>}
+    {(page === "schedule" || page === "contact") && <section className="info-reading"><span className="info-kicker">CONTACT TIC</span><h1>ติดต่อเรา</h1><div className="info-facts"><div><h2>TIC</h2><p>จังหวัดสระบุรี</p></div></div></section>}
     {page === "faq" && <section className="info-reading"><h1>คำถามที่พบบ่อย</h1>{[
-      ["เว็บไซต์เปิดให้ใช้บริการแล้วหรือยัง?","ขณะนี้เว็บไซต์นำเสนอข้อมูลทั่วไปและบทความ กำหนดเปิดให้บริการจะประกาศเมื่อยืนยันแล้ว"],
+      ["ค้นหาบทความเกี่ยวกับอะไรได้บ้าง?","อ่านเรื่องการดูแลผิว กันแดด สิว ฝ้า และข้อควรรู้ก่อนทำหัตถการได้ในหน้าบทความ"],
       ["นำบทความไปใช้ตัดสินใจรักษาได้ไหม?","บทความเป็นข้อมูลเบื้องต้น การเลือกวิธีรักษาต้องอาศัยการประเมินสุขภาพและข้อบ่งใช้ของแต่ละบุคคล"],
-      ["ข้อมูลแพทย์และการเดินทางอยู่ที่ไหน?","รายละเอียดจะเพิ่มในหน้าข้อมูลการติดต่อเมื่อมีข้อมูลที่ยืนยันแล้ว"]
+      ["อ่านแหล่งอ้างอิงเพิ่มเติมได้ที่ไหน?","ท้ายแต่ละบทความมีลิงก์ไปยังแหล่งข้อมูลต้นทางสำหรับศึกษาเพิ่มเติม"]
     ].map(([q,a])=><details className="info-faq" key={q}><summary>{q}</summary><p>{a}</p></details>)}</section>}
-    {page === "unavailable" && <section className="info-reading"><span className="info-kicker">TIC</span><h1>หน้านี้ยังไม่เปิดใช้งาน</h1><p className="info-lead">อ่านความรู้เกี่ยวกับสุขภาพผิวได้ที่ห้องสมุดบทความ</p><Link className="info-button" href="/articles/">ไปที่บทความ <ArrowUpRight /></Link></section>}
-    <footer className="info-footer"><div><TicLogo /><p>ข้อมูลทั่วไปและความรู้สุขภาพผิว</p></div><div><Link href="/articles/">บทความ</Link><Link href="/faq/">คำถามที่พบบ่อย</Link><Link href="/contact/">ข้อมูลติดต่อ</Link></div><small>© 2026 TIC</small></footer>
+    {page === "unavailable" && <section className="info-reading"><span className="info-kicker">TIC</span><h1>ไม่พบหน้าที่คุณต้องการ</h1><p className="info-lead">อ่านความรู้เกี่ยวกับสุขภาพผิวได้ที่ห้องสมุดบทความ</p><Link className="info-button" href="/articles/">ไปที่บทความ <ArrowUpRight /></Link></section>}
+    <footer className="info-footer"><div><TicLogo /></div><div><Link href="/articles/">บทความ</Link><Link href="/faq/">คำถามที่พบบ่อย</Link><Link href="/contact/">ติดต่อเรา</Link></div><small>© 2026 TIC</small></footer>
   </main>;
 }
