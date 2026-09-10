@@ -1,5 +1,0 @@
-:HL["/TIC-test/_next/static/chunks/0v2n.y16vve1l.css","style"]
-:HL["/TIC-test/_next/static/chunks/0hw5ke__yiobp.css","style"]
-:HL["/TIC-test/images/tic-clinic-logo-transparent.png","image"]
-:HL["/TIC-test/images/articles/melasma-care.webp","image"]
-0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"articles","param":null,"prefetchHints":0,"slots":{"children":{"name":"slug","param":{"type":"d","key":"melasma-care","siblings":null},"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}}}},"staleTime":300,"buildId":"9WIfAM2dyME4p2DL7RXq0"}

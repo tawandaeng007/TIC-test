@@ -1,3 +1,11 @@
-import InformationSite from "@/components/InformationSite";
-export const metadata = { title: "TIC | ข้อมูลและความรู้สุขภาพผิว", description: "ความรู้สุขภาพผิวและข้อมูลทั่วไป", robots: { index: false, follow: true }, };
-export default function Page() { return <InformationSite page="unavailable" />; }
+import type { Metadata } from "next";
+import CheckoutPageClient from "./CheckoutPageClient";
+
+export const metadata: Metadata = {
+  title: "สรุปและชำระเงิน | TIC Clinic",
+  description: "กรอกข้อมูลผู้รับบริการและตรวจสอบรายการโปรแกรม TIC Clinic",
+};
+
+export default function CheckoutPage() {
+  return <CheckoutPageClient />;
+}

@@ -1,4 +1,2 @@
-:HL["/TIC-test/_next/static/chunks/0v2n.y16vve1l.css","style"]
-:HL["/TIC-test/_next/static/chunks/0hw5ke__yiobp.css","style"]
-:HL["/TIC-test/images/tic-clinic-logo-transparent.png","image"]
-0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"reviews","param":null,"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}},"staleTime":300,"buildId":"9WIfAM2dyME4p2DL7RXq0"}
+:HL["/TIC-test/_next/static/chunks/0~zexwtrzaw4u.css","style"]
+0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"reviews","param":null,"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}},"staleTime":300,"buildId":"1op5YCNvtrJjqrVDj-nVL"}
